@@ -233,6 +233,12 @@ input{
     font-size: 15px;
 }
 
+.btn:focus{
+    outline: none;
+    border: 1px solid #fff;
+    color: auto;
+}
+
 .btn:hover{
     background-color: #555;
     color: white;
@@ -241,6 +247,18 @@ input{
 .btn.pull-right{
     margin-left: 5px;
 }
+
+.btn.mini{
+    padding: 5px;
+    margin: 0px 5px;
+}
+
+.btn.round{
+    border-radius: 100%;    
+}
+
+.btn.transparent{background-color: transparent;}
+.btn.transparent:hover{background-color: #666;}
 
 .btn.blue{background-color: #0af; color: black;}
 .btn.blue:hover{background-color: #2cf; color: black;}

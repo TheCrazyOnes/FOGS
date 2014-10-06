@@ -26,8 +26,8 @@
             <header>
                 <ul id = "head" class="reset">
                     <li id="logo" >&nbsp;</li>
-                    <li id="subject-name">sint noster non quem voluptatibus</li>
-                    <li id="user"></li>
+                    <li id="subject-name"><span>Networking principles and fundamentals</span><span class=" btn mini round transparent glyphicon glyphicon-pencil" style="font-size: 15px;"></span></li>
+                    <li id="user" class="pull-right"><strong>Almeda</strong><div>Mark Louie</div><span>Logout</span></li>
                 </ul>
                 <div id = "progress">
                     <div id = "value"></div>
@@ -44,16 +44,32 @@
 --><li class="sub">
                     <div>Student</div>
                     <ul class="reset">
-                        <li onclick="PopupWindow.Show();">Add student</li>
-                        <li>Create new student</li>
-                        <li class="disabled">Edit current student</li>
-                        <li class="disabled">Delete current student</li>
+                        <li onclick="AddStudent();">Add student..</li>
+                        <li onclick="NewStudent();">Create new student..</li>
+                        <li class="disabled">Manage students</li>
                     </ul>
                     </li><!--
---><li>Component</li><!--
---><li>Grade</li><!--
---><li>Reports</li><!--
---><li>Help</li>         
+                 --><li class="sub">
+                        <div>Component</div>
+                        <ul class="reset">
+                            <li onclick="EditComponent();">Edit components</li>
+                        </ul>
+                    </li><!--
+                 --><li class="sub">
+                        <div>Reports</div>
+                        <ul class="reset">
+                            <li onclick="EmailSubjectRecords();">Email records</li>
+                            <li onclick="DownloadReport();">Download records</li>
+                        </ul>
+                    </li><!--
+                 --><li class = "sub">
+                        <div>Help</div>
+                        <ul class="reset">
+                            <li onclick="TakeTheTour();">Take the tour</li>
+                            <li onclick="FAQ();">Frequently Asked Questions</li>
+                            <li onclick="ShowAbout();">About us</li>
+                        </ul>
+                    </li>         
                 </ul>
             </header>
 
@@ -62,14 +78,14 @@
             <div id="body">
                 <div class="main">
 
-
                     <h2>Edit Components</h2>
                     <div class="panel-group" id="accordion">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a contenteditable=true data-toggle="collapse"  href="#collapseOne">
+                                    <a data-toggle="collapse"  href="#collapseOne">
                                         Prelim
+                                        <span class="btn mini round transparent glyphicon glyphicon-pencil"></span>
                                     </a>
                                 </h4>
                             </div>

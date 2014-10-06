@@ -98,3 +98,17 @@ function MergeArray(a1, a2)
     
     return a1;
 }
+
+function Iterate(callback, repetitions,delay)
+{
+    var i = 0;
+    var iterator = setInterval(function(){
+        if(repetitions == i)
+            clearTimeout(iterator);
+
+        callback();
+
+        i++; 
+    }, delay);
+
+}

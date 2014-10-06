@@ -50,11 +50,58 @@ header #head #logo {
 }
 
 header #head #subject-name {
-    font-size: 35px;
+    font-size: 30px;
     height: 100%;   
     line-height: 50px;
     padding-left: 15px;
 }
+
+header #head #user {
+    padding: 5px;
+    font-size: 15px;
+    margin-right: 15px;
+    line-height: 15px;
+    margin-top: 10px;
+    text-align: right;
+/*    border: 1px solid #0af;*/
+    border-right: 3px solid #0af;
+    position: relative;
+    overflow: hidden;
+}
+
+header #head #user span{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    right: -100%;
+    background-color: #555;
+    transition: 0.5s;
+    padding-top: 12px;
+    text-align: center;
+    color: #0af;
+    cursor: pointer;
+}
+
+header #head #user:hover span{
+    
+    right: 0%;
+}
+
+header #head #user:hover{
+    
+}
+
+header #head #user strong{
+    font-size: 20px;
+    color: #0af;
+}
+
+header #head #user div{
+    
+}
+
+
 
 header #progress{
     width: 100%;
@@ -273,6 +320,7 @@ body>.inner>#body>.side-bar>ul.students>li:hover{
     padding: 5px;
 }
 
+
 .window .body>.row>ul li{
     display: block;
     
@@ -305,8 +353,12 @@ body>.inner>#body>.side-bar>ul.students>li:hover{
     border: 2px solid #0af;
 }
 
+.window .body>.row>ul li.selected:hover{
+    background-color: #2cf;
+}
 
-.window .body>.row>ul li:focus{
+
+.window .body>.row>ul li:focus, .window .body>.row>ul li.selected{
     background-color: #0af;
     border: 2px solid #0af;
     outline: none;
