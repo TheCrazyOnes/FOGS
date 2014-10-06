@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <link type="text/css" rel="stylesheet" href="plugins/animate.css">
+        <link type="text/css" rel="stylesheet" href="plugins/waitme/waitMe.min.css">
+        <link type="text/css" rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+        <link type="text/css" rel="stylesheet" href="css/theme.css">
+        <link type="text/css" rel="stylesheet" href="css/main-ui.css">
+
+
+
+        <script src="plugins/jquery-2.0.3.min.js"></script>    
+        <script src="plugins/bootstrap/bootstrap.min.js"></script>
+        <script src="plugins/waitme/waitMe.min.js"></script>
+        <script src="js/backend-com.js"></script>
+        <script src="js/interaction-driver.js"></script>
+        <script src="js/main.js"></script>
+
+    </head>
+
+    <body onkeyup="UniversalKeyUp();">
+        <div class="inner">
+
+            <header>
+                <ul id = "head" class="reset">
+                    <li id="logo" >&nbsp;</li>
+                    <li id="subject-name">sint noster non quem voluptatibus</li>
+                    <li id="user"></li>
+                </ul>
+                <div id = "progress">
+                    <div id = "value"></div>
+                </div>
+                <ul id = "menu" class="reset">
+                    <li id = "new-subject" class="sub" data-content = "varias quo cohaerescant <a class = 'btn blue' onclick = ''>Next</a>" title="lorem">
+                        <div>Subject</div>
+                        <ul class="reset">
+                            <li onclick="NewSubject();">New subject...</li>
+                            <li onclick="OpenSubject();">Open subject...</li>
+                            <li onclick="DeleteCurrentSubject();">Delete current subject</li>
+                        </ul>
+                    </li><!--                
+--><li class="sub">
+                    <div>Student</div>
+                    <ul class="reset">
+                        <li onclick="PopupWindow.Show();">Add student</li>
+                        <li>Create new student</li>
+                        <li class="disabled">Edit current student</li>
+                        <li class="disabled">Delete current student</li>
+                    </ul>
+                    </li><!--
+--><li>Component</li><!--
+--><li>Grade</li><!--
+--><li>Reports</li><!--
+--><li>Help</li>         
+                </ul>
+            </header>
+
+
+
+            <div id="body">
+                <div class="main">
+
+
+                    <h2>Edit Components</h2>
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a contenteditable=true data-toggle="collapse"  href="#collapseOne">
+                                        Prelim
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" href="#collapseOne2">
+                                                        Quiz
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseOne2" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse"  href="#collapseTwo2">
+                                                        Project
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseTwo2" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading add">
+                                                <h4 class="panel-title">
+                                                    <a contenteditable="true" data-toggle="collapse"  href="#collapseThree2">
+                                                        Add new component
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseThree2" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" href="#collapseTwo">
+                                        Midterm
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" href="#collapseOne2">
+                                                        Quiz
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseOne2" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse"  href="#collapseTwo2">
+                                                        Project
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseTwo2" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading add">
+                                                <h4 class="panel-title">
+                                                    <a contenteditable="true" data-toggle="collapse"  href="#collapseThree2">
+                                                        Add new component
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseThree2" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" href="#collapseThree">
+                                        Finals
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" href="#collapseOne2">
+                                                        Quiz
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseOne2" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse"  href="#collapseTwo2">
+                                                        Project
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseTwo2" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading add">
+                                                <h4 class="panel-title">
+                                                    <a contenteditable="true" data-toggle="collapse"  href="#collapseThree2">
+                                                        Add new component
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseThree2" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="side-bar">
+                    <ul class="students reset">
+                        <li>fore eu e veniam ingeniis</li>
+                        <li>iis veniam adipisicing</li>
+                        <li>laboris exquisitaque</li>
+                        <li>ab legam ad minim</li>
+                        <li>officia reprehenderit</li>
+                        <li>ita minim non sunt</li>
+                        <li>nulla probant transferrem</li>
+                        <li>illum nisi ingeniis</li>
+                        <li>aute excepteur eiusmod</li>
+                        <li>incurreret tractavissent</li>
+                        <li>fore eu e veniam ingeniis</li>
+                        <li>iis veniam adipisicing</li>
+                        <li>laboris exquisitaque</li>
+                        <li>ab legam ad minim</li>
+                        <li>officia reprehenderit</li>
+                        <li>ita minim non sunt</li>
+                        <li>nulla probant transferrem</li>
+                        <li>illum nisi ingeniis</li>
+                        <li>aute excepteur eiusmod</li>
+                        <li>incurreret tractavissent</li>
+                        <li>fore eu e veniam ingeniis</li>
+                        <li>iis veniam adipisicing</li>
+                        <li>laboris exquisitaque</li>
+                        <li>ab legam ad minim</li>
+                        <li>officia reprehenderit</li>
+                        <li>ita minim non sunt</li>
+                        <li>nulla probant transferrem</li>
+                        <li>illum nisi ingeniis</li>
+                        <li>aute excepteur eiusmod</li>
+                        <li>incurreret tractavissent</li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <footer>
+                <span id = "state">dolore aliquip fabulas noster</span>
+                <span id = "copyright">Designed and Developed by <a href="#">TheCrazyOnes</a></span>
+            </footer>
+
+<!--
+            <div class = "notification-fader">
+            </div>
+            <div class="window layer-4" style="width: 250px; height: 150px;">
+                <div class="title">Open subject<span id = "close" class="pull-right glyphicon glyphicon-remove"></span></div>
+                <div class="body">
+                    <div class="inner">
+                        Text name:
+                        <input type="text" placeholder="test">
+                    </div>
+                    <div class="row">
+                        <ul id = "items" class="col-xs-8 reset">
+                            <li tabindex="0">lorem</li>
+                            <li tabindex="0">ipsum</li>
+                            <li tabindex="0">dolor</li>
+                            <li tabindex="0">sit amet</li>
+                            <li tabindex="0">lorem</li>
+                            <li tabindex="0">ubi illum eruditionem doctrina quem</li>
+                            <li tabindex="0">dolor</li>
+                            <li tabindex="0">sit amet</li>
+                            <li tabindex="0">ubi illum eruditionem doctrina quem</li>
+                            <li tabindex="0">dolor</li>
+                            <li tabindex="0">sit amet</li>
+                        </ul>
+                        <div id = "description" class="col-xs-4">
+                            start sempiternum veniam fabulas o duis illum deserunt noster offendit possumus 
+                            cohaerescant domesticarum cernantur an labore tractavissent relinqueret 
+                            praetermissum domesticarum nulla hic de despicationes culpa nam singulis singulis de eiusmod end
+                        </div>
+                    </div>
+                </div>
+                <div class="action-menu">
+                    <a class="btn blue pull-right">Save</a>
+                    <a class="btn red pull-right">Cancel</a>
+                </div>
+            </div>
+-->
+
+
+        </div>
+
+    </body>
+
+
+</html>

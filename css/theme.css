@@ -1,0 +1,250 @@
+ul.reset{
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+}
+
+ul.reset>li{
+    display: inline-block;
+}
+
+a{
+    color: #CCC;
+}
+
+a:hover{
+    color: #0AF;
+}
+
+.absolute-center{
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+    border-radius: 0px;
+    width: 12px;
+    height: 12px;
+/*    position: absolute;*/
+/*    background-color: #EEE;*/
+/*    width: 2px;*/
+}
+
+::-webkit-scrollbar-track {
+    
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    border-left: none;
+    border-top: 7px solid rgba(0,0,0,0.5);
+    height: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    margin-right: 3px;
+/*    background-color: rgba(0,0,0,0.5);*/
+    border-left: 7px solid rgba(0,0,0,0.5);
+
+/*    border-right: 2px solid #333;*/
+/*    border-radius: 10px;*/
+}
+
+.disabled{
+    cursor: no-drop !important;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+
+.popover{
+    box-shadow: none;
+    background-color: #222;
+    border-radius: 0px;
+    border: 2px solid rgba(0,0,0,0.7);
+    
+    background-color: #CCC;
+    color: #333;
+    outline: none;
+/*    border: none;*/
+}
+
+.popover-title{
+    background-color: #0af;
+    box-shadow: none;
+    border: none;
+    border-radius: 0px;
+    color: black;
+}
+
+.popover .arrow:after {
+    border-bottom-color: rgba(0,0,0,0.7) !important;
+    
+}
+
+.panel-group, .panel-group *{
+    border-radius: 0px !important;
+}
+
+.panel-group{
+    margin-bottom: 0px;
+/*    opacity: 0.93;*/
+}
+
+
+.panel-group .add{
+    opacity: 0.9;
+}
+
+/*first level*/
+.panel-group .panel-heading{
+    border-radius: 0px !important;
+    border: none;
+    background-color: #777;
+    color: #999;
+    padding: 0px;
+}
+
+/*second level*/
+.panel-group .panel-group .panel-heading{
+    background-color: #353535;
+    border-bottom: 1px solid #2a2a2a !important; 
+}
+.panel-group .panel-group .panel-heading a{
+    color: #999;
+}
+
+
+/*third level*/
+.panel-group .panel-group .panel-group .panel-heading{
+    background-color: #555;
+}
+
+.panel-group .panel-body{
+    padding: 0px;
+/*    padding-left: 20px;*/
+    border: none !important;
+    transition: 0.5s;
+}
+
+.panel-group .panel-collapse.collapse .panel-body{
+    padding-left: 0px;
+}
+
+.panel-group .panel-collapse.collapse.in .panel-body{
+    padding-left: 20px;
+}
+
+
+.panel-group .panel{
+    margin: 0px !important;
+    border: none;
+    padding: 0px;
+} 
+
+.panel-group .panel-heading a{
+    color: #999;
+    color: black;
+    text-decoration: none;
+    display: block;
+    padding: 10px 15px;
+}
+
+.panel-group .panel-heading a:hover{
+    color: black;
+}
+
+.panel-group .panel-heading a:focus{
+    outline: none;
+    background-color: #666;
+    color: #0D0 !important;
+}
+
+
+
+.panel-group .panel .panel-heading{
+    border-bottom: 1px solid #333;
+}
+
+.panel-group .panel:nth-child(even) .panel-heading{
+/*    background-color: #0A0A0A;*/
+}
+
+.panel-group .panel:hover>.panel-heading{
+    background-color: #0AF;
+    background-color: #666;
+    background-color: #888;
+    
+    color: black;
+/*    border-bottom: 1px solid #0AF;*/
+}
+
+.panel-group .panel:hover>.panel-heading a{
+    color: black;
+}
+
+input{
+    background-color: #333;
+    outline: none;
+    border: none;
+    color: #CCC;
+    padding: 3px 5px;
+}
+
+::-webkit-input-placeholder {
+    color: #555;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    color: #555; 
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+    color: #555; 
+}
+
+:-ms-input-placeholder {  
+    color: #555; 
+}
+
+
+
+.animated{
+    -webkit-animation-duration: 0.5s;
+    -moz-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+}
+
+
+.layer-1{ z-index: 100; }
+.layer-2{ z-index: 200; }
+.layer-3{ z-index: 300; }
+.layer-4{ z-index: 400; }
+
+.btn{
+    background-color: #444;
+    border-radius: 0px;
+    color: #999;
+    font-size: 15px;
+}
+
+.btn:hover{
+    background-color: #555;
+    color: white;
+}
+
+.btn.pull-right{
+    margin-left: 5px;
+}
+
+.btn.blue{background-color: #0af; color: black;}
+.btn.blue:hover{background-color: #2cf; color: black;}
+
+.btn.red{background-color: #f33; color: black;}
+.btn.red:hover{background-color: #f55; color: black;}
+
