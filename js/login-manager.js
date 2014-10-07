@@ -11,6 +11,8 @@ function Login()
         $(".login-form#login #state").html("Employee Number or password is not provided");
         return;
     }
+    
+    
         
     $(".login-form#login").waitMe({
         effect : 'stretch',
@@ -26,8 +28,16 @@ function Login()
         data = JSON.parse(data);
         
         if(data.state == "error")
+        {   
             $(".login-form#login #state").html(data.reason);
-        
+            Animate(".login-form#login", "wobble");
+        }
+        else
+        {
+            ExitLoginForm();
+            ResetLoginFormFields();
+            
+        }
         
         $(".login-form#login").waitMe("hide");
     });
@@ -38,13 +48,37 @@ function Register()
     var vals = {};
     
     vals.method = "Register";
-    vals.Name = $(".login-form#register #name").val();
+    vals.Name = $(".login-form#register #name").val().trim();
     vals.Password = $(".login-form#register #password").val();
-    vals.EmployeeNumber = $(".login-form#register #employee-number").val();
+    vals.EmployeeNumber = $(".login-form#register #employee-number").val().trim();
+    
+    if(vals.EmployeeNumber == "")
+    {
+        $(".login-form#register #state").html("Employee Number is not provided");
+        return;
+    }
+    
+    if(vals.Name == "")
+    {
+        $(".login-form#register #state").html("Name is not provided");
+        return;
+    }
+    
+    if( vals.Name.indexOf(",") < 2)
+    {
+        $(".login-form#register #state").html("Name format should be: LN, FN");
+        return;
+    }
     
     if(vals.Password != $(".login-form#register #confirm-password").val())
     {
-        $(".login-form#register #status").html("Password does not match");
+        $(".login-form#register #state").html("Password does not match");
+        return;
+    }
+    
+    if(vals.Password.length < 6)
+    {
+        $(".login-form#register #state").html("Password should at least be 6 chars");
         return;
     }
     
@@ -59,21 +93,48 @@ function Register()
 
     $.post("php/frontend-com.php", vals, function(data){
 
-        
+
         data = JSON.parse(data);
 
+        
+        
         if(data.state == "error")
+        {   
             $(".login-form#register #state").html(data.reason);
-
-
+            Animate(".login-form#register", "wobble");
+        }
+        else
+        {
+            ExitLoginForm();
+            ResetLoginFormFields();
+        }
+        
         $(".login-form#register").waitMe("hide");
     });
     
 }
 
 
-function GoToRegister(){
-    
+function ExitLoginForm()
+{
+    Animate("#login-menu", "fadeOutDownBig", function(){
+        
+    }, 2000);
+}
+
+function ResetLoginFormFields()
+{
+    $(".login-form#register #name").val("");
+    $(".login-form#register #password").val("");
+    $(".login-form#register #confirm-password").val("");
+    $(".login-form#register #employee-number").val("");
+    $(".login-form#login #employee-number").val("");
+    $(".login-form#login #password").val("");
+}
+
+function GoToRegister()
+{
+    ResetLoginFormFields();
     $(".login-form#login").removeClass("fadeInLeftBig");
     $(".login-form#register").removeClass("fadeOutRightBig");
     
@@ -82,7 +143,10 @@ function GoToRegister(){
     $(".login-form#register").css("opacity","1");
 }
 
-function BackToLogin(){
+function BackToLogin()
+{
+    ResetLoginFormFields();
+    
     $(".login-form#login").removeClass("fadeOutLeftBig");
     $(".login-form#register").removeClass("fadeInRightBig");
     

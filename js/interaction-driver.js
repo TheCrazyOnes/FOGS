@@ -99,6 +99,21 @@ function MergeArray(a1, a2)
     return a1;
 }
 
+function Animate(selector, animation, callback, delay)
+{
+//    alert($(selector).html());
+    callback = callback || function(){};
+    $(selector).removeClass(animation);
+    $(selector).css("animation-duration", delay / 1000 + "s");
+    $(selector).addClass(animation);
+    
+    setTimeout(function(){
+        $(selector).addClass(animation);
+        callback();
+    }, delay);
+    
+}
+
 function Iterate(callback, repetitions,delay)
 {
     var i = 0;

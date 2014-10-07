@@ -4,14 +4,14 @@
     {
         $professor = QuerySingleRow("SELECT * FROM Professor WHERE EmployeeNumber = '{$_POST['EmployeeNumber']}' AND Password = '{$_POST['Password']}'");
         
-        if($professor)
+        if(count($professor) > 0)
         {
             $_SESSION["EmployeeNumber"] = $professor["EmployeeNumber"];
             $_SESSION["Name"] = $professor["Name"];
             
             $data["state"] = "Success";
-            $data["credentials"] = "Success";
-            
+            $data["credentials"] = $professor;
+            echo json_encode($data);
         }
         else
         {
@@ -23,19 +23,20 @@
 
     function Register()
     {
+
         $professor = QuerySingleRow("SELECT * FROM Professor WHERE EmployeeNumber = '{$_POST['EmployeeNumber']}'");
         
-        if($professor)
+        if(count($professor) > 0)
         {
             $data["state"] = "error";
-            $data["reason"] = "The employeeNumber is already in use";
-            echo json_decode($data);
+            $data["reason"] = "Employee number is already in use";
+            echo json_encode($data);
         }
         else
         {
             $ret = ExecuteQuery("INSERT INTO Professor(`Name`, `EmployeeNumber`,`Password`) VALUES('{$_POST['Name']}','{$_POST['EmployeeNumber']}','{$_POST['Password']}')");
-            
             Login();
+            
         }
         
         
