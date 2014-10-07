@@ -1,5 +1,22 @@
 <?php
 
+    function Initialize()
+    {
+        if(isset($_SESSION["EmployeeNumber"]))
+        {
+            $data["EmployeeNumber"] = $_SESSION["EmployeeNumber"];
+            $data["Name"] = $_SESSION["Name"];
+            
+            echo json_encode($data);
+        }
+        else
+        {
+            $data["state"] = "logged out";
+            
+            echo json_encode($data);
+        }
+    }
+
     function Login()
     {
         $professor = QuerySingleRow("SELECT * FROM Professor WHERE EmployeeNumber = '{$_POST['EmployeeNumber']}' AND Password = '{$_POST['Password']}'");
@@ -38,9 +55,11 @@
             Login();
             
         }
-        
-        
-        
+    }
+
+    function Logout()
+    {
+        session_destroy();
     }
 
 ?>

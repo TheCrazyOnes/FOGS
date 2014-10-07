@@ -1,10 +1,5 @@
 <?php
 
-
-
-
-
-
 /////Subject menu/////
 
 function NewSubject()

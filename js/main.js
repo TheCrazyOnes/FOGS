@@ -5,6 +5,8 @@ $(document).ready(function(){
 var currentSubject = -1;
 var selectedSubject = -1;
 
+var userInfo = {};
+
 function UniversalKeyUp()
 {
     if(event.which == 27 && PopupWindow.IsOpen)

@@ -99,16 +99,32 @@ function MergeArray(a1, a2)
     return a1;
 }
 
-function Animate(selector, animation, callback, delay)
+function Animate(selector, animation, callback, delay, remove)
 {
 //    alert($(selector).html());
+    delay = delay || 500;
+    remove = remove || false;
+    
+    var animations = ["animated","bounce","flash","pulse","rubberBand","shake","swing","tada","wobble","bounceIn","bounceInDown","bounceInLeft","bounceInRight","bounceInUp","Bouncing Exits","bounceOut","bounceOutDown","bounceOutLeft","bounceOutRight","bounceOutUp","fadeIn","fadeInDown","fadeInDownBig","fadeInLeft","fadeInLeftBig","fadeInRight","fadeInRightBig","fadeInUp","fadeInUpBig","fadeOut","fadeOutDown","fadeOutDownBig","fadeOutLeft","fadeOutLeftBig","fadeOutRight","fadeOutRightBig","fadeOutUp","fadeOutUpBig","flip","flipInX","flipInY","flipOutX","flipOutY","Lightspeed","lightSpeedIn","lightSpeedOut","rotateIn","rotateInDownLeft","rotateInDownRight","rotateInUpLeft","rotateInUpRight","rotateOut","rotateOutDownLeft","rotateOutDownRight","rotateOutUpLeft","rotateOutUpRight","hinge","rollIn","rollOut","zoomIn","zoomInDown","zoomInLeft","zoomInRight","zoomInUp","zoomOut","zoomOutDown","zoomOutLeft","zoomOutRight","zoomOutUp"];
+    
+    animations.forEach(function(e,i){
+        $(selector).removeClass(e);
+    });
+    
     callback = callback || function(){};
-    $(selector).removeClass(animation);
+    
     $(selector).css("animation-duration", delay / 1000 + "s");
     $(selector).addClass(animation);
+
+    $(selector).addClass("animated");
+    if(!remove)
+    {
+        callback();   
+        return;
+    }
     
     setTimeout(function(){
-        $(selector).addClass(animation);
+        $(selector).removeClass(animation);
         callback();
     }, delay);
     

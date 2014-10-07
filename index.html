@@ -32,7 +32,7 @@
                         <strong>Almeda</strong>
                         <div>Mark Louie</div>
                         <span>
-                            <span>Logout</span>
+                            <span onclick="Logout();">Logout</span>
                             <span>Manage</span>
                         </span>
                     </li>
@@ -296,8 +296,8 @@
                 <span id = "copyright">Designed and Developed by <a onclick="ShowAbout();">TheCrazyOnes</a></span>
             </footer>
 
-            <div class="full-page layer-4 animated"  id = "login-menu">
-                <div id = "login" class="login-form absolute-center animated fadeInRightBig" style="z-index: 2;">
+            <div class="full-page layer-4 animated loading"  id = "login-menu">
+                <div id = "login" class="login-form absolute-center animated" style="z-index: 2; opacity: 0;">
                     <input id = "employee-number" type="text" placeholder="Employee Number e.g. E2011100000">
                     <input id = "password" type="password" placeholder="Password">
                     <a onclick="GoToRegister();" style="font-size: 14px;">Create an account</a>
@@ -315,7 +315,7 @@
                     <div onclick="BackToLogin();" class="btn gray pull-right">Cancel</div>
                 </div>
                 
-                <div id = "login-logo" class="absolute-center">
+                <div id = "login-logo" class="absolute-center loading">
                     <img src="images/logo-blue.png">
                     <span>FOGS</span>
                 </div>

@@ -69,7 +69,7 @@ header #head #user {
     border-right: 3px solid #0af;
     position: relative;
     overflow: hidden;
-    min-width: 90px;
+    min-width: 120px;
 }
 
 header #head #user>span{
@@ -83,7 +83,7 @@ header #head #user>span{
 /*    padding-top: 12px;*/
     text-align: center;
     color: #0af;
-    cursor: pointer;
+ 
 }
 
 header #head #user:hover span{
@@ -96,7 +96,11 @@ header #head #user>span>span{
     line-height: 20px;
 }
 
-header #head #user>span>span:hover{
+header #head #user>span>span:first-child{
+    cursor: pointer;
+}
+
+header #head #user>span>span:first-child:hover{
     background-color: #0af;
     color: black;
 }
@@ -426,9 +430,23 @@ footer #copyright{
     top: 0px;
     left: 0px;
     background-color: #222;
+    transition: 0.5s;
+}
+
+#login-menu.loading{
+    background-color: #333;
+}
+
+#login-menu.loading #login{
+    opacity: 0;
+}
+
+#login-logo.loading {
+    padding-bottom: 150px;
 }
 
 #login-logo {
+    transition: 0.5s;
     font-size: 2em;
     color: white;
     width: 230px;
