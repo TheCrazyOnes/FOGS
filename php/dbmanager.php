@@ -1,6 +1,6 @@
 <?php
 
-$link = mysqli_connect("localhost","alibaba","quNdjv2mBFLdthMT","alibaba") or die("Error " . mysqli_error($link));
+$link = mysqli_connect("localhost","alibaba","quNdjv2mBFLdthMT","fogs") or die("Error " . mysqli_error($link));
 
 
 if(isset($_POST['method']))

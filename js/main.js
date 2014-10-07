@@ -1,10 +1,5 @@
 $(document).ready(function(){
     
-//    $('#new-subject').popover({
-//        animation: true,
-//        placement: "bottom",
-//        html: true
-//    }).popover("show"); 
 });
 
 var currentSubject = -1;
@@ -132,7 +127,7 @@ function OpenSubject()
     PopupWindow.Show({ 
         Content: windowContent.OpenMenu, 
         Title: "Open Subject", 
-        ActionButtons: '<a tabindex=0 onclick = "OpenSubjectRequest();" class="btn blue pull-right">Open</a> <a tabindex=0 onclick = "PopupWindow.Close();" class="btn gray pull-right">Cancel</a>',
+        ActionButtons: '<a id = "open" tabindex=0 onclick = "OpenSubjectRequest();" class="btn blue pull-right">Open</a> <a tabindex=0 onclick = "PopupWindow.Close();" class="btn gray pull-right">Cancel</a>',
         OnRender:function(){
             
             
@@ -150,13 +145,12 @@ function OpenSubject()
             
             $.post("php/frontend-com.php", {method:"OpenSubject"}, function(data){
                 var str = "";
-                var i = 0;
                 
-                Iterate(function(){
-                    i++;
-                    $(".window .body ul").append("<li tabindex=0 data-id='"+i+"' onclick='SelectSubjectItem(this)' onfocus='SelectSubjectItem(this)'>lorem</li>");
+                data = JSON.parse(data);
+                Iterate(function(i){
+                    $(".window .body ul").append("<li tabindex=0 data-id='"+data[i].id+"' onclick='SelectSubjectItem(this)' onfocus='SelectSubjectItem(this)'>"+data[i].name+"</li>");
                     
-                }, 30, 50);
+                }, data.length, 50);
                 
                 $(".window .body ul").waitMe("hide");
             });
@@ -166,7 +160,16 @@ function OpenSubject()
 
 function OpenSubjectRequest()
 {
+    $(".window .status").waitMe({
+        effect : 'win8_linear',
+        text : '',
+        bg : "transparent",
+        color : "white",
+        sizeW : '',
+        sizeH : ''
+    });
     alert("Opening subject with id " + selectedSubject);
+    $(".window .status").waitMe("hide");
     PopupWindow.Close();
 }
 
@@ -207,4 +210,15 @@ function DeleteCurrentSubjectRequest()
     var password = $(".window .inner input").val();
     alert("Deleting current subject with password: " + password);
     PopupWindow.Close();
+}
+
+/////////////
+
+function ShowAbout()
+{
+    PopupWindow.Show({ 
+        Content: windowContent.OpenMenu, 
+        Title: "Open Subject", 
+        ActionButtons: '<a id = "open" tabindex=0 onclick = "OpenSubjectRequest();" class="btn blue pull-right">Open</a> <a tabindex=0 onclick = "PopupWindow.Close();" class="btn gray pull-right">Cancel</a>',
+    });
 }

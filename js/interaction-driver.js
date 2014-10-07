@@ -26,7 +26,7 @@ var PopupWindow = {
     </div>\
     <div class="body">\
     </div>\
-    <div class="action-menu">\
+    <div class="action-menu"><span class="status"></span>\
     </div>\
 </div>\
     ',
@@ -62,7 +62,7 @@ var PopupWindow = {
             $(".window .body").html(defaultOptions.Content);
             $(".window").css({width: defaultOptions.Size.Width + "px", height: defaultOptions.Size.Height + "px"})
             $(".window .title #text").html(defaultOptions.Title);
-            $(".window .action-menu").html(defaultOptions.ActionButtons);
+            $(".window .action-menu").append(defaultOptions.ActionButtons);
 
             defaultOptions.OnRender();
             
@@ -106,7 +106,7 @@ function Iterate(callback, repetitions,delay)
         if(repetitions == i)
             clearTimeout(iterator);
 
-        callback();
+        callback(i);
 
         i++; 
     }, delay);

@@ -10,6 +10,7 @@ ul.reset>li{
 
 a{
     color: #CCC;
+    cursor: pointer;
 }
 
 a:hover{
@@ -231,6 +232,7 @@ input{
     border-radius: 0px;
     color: #999;
     font-size: 15px;
+    transition: 0.5s !important;
 }
 
 .btn:focus{
@@ -266,3 +268,9 @@ input{
 .btn.red{background-color: #f33; color: black;}
 .btn.red:hover{background-color: #f55; color: black;}
 
+/*
+.btn.loading{
+    color: transparent !important;
+    border: 1px solid transparent;
+}
+*/

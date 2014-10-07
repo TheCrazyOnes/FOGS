@@ -6,8 +6,8 @@
         <link type="text/css" rel="stylesheet" href="plugins/animate.css">
         <link type="text/css" rel="stylesheet" href="plugins/waitme/waitMe.min.css">
         <link type="text/css" rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
-        <link type="text/css" rel="stylesheet" href="css/theme.css">
-        <link type="text/css" rel="stylesheet" href="css/main-ui.css">
+        <link type="text/css" rel="stylesheet" href="css/theme.css?b">
+        <link type="text/css" rel="stylesheet" href="css/main-ui.css?a">
 
 
 
@@ -17,6 +17,7 @@
         <script src="js/backend-com.js"></script>
         <script src="js/interaction-driver.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/login-manager.js"></script>
 
     </head>
 
@@ -25,9 +26,16 @@
 
             <header>
                 <ul id = "head" class="reset">
-                    <li id="logo" >&nbsp;</li>
+                    <li id="logo">&nbsp;</li>
                     <li id="subject-name"><span>Networking principles and fundamentals</span><span class=" btn mini round transparent glyphicon glyphicon-pencil" style="font-size: 15px;"></span></li>
-                    <li id="user" class="pull-right"><strong>Almeda</strong><div>Mark Louie</div><span>Logout</span></li>
+                    <li id="user" class="pull-right">
+                        <strong>Almeda</strong>
+                        <div>Mark Louie</div>
+                        <span>
+                            <span>Logout</span>
+                            <span>Manage</span>
+                        </span>
+                    </li>
                 </ul>
                 <div id = "progress">
                     <div id = "value"></div>
@@ -285,9 +293,36 @@
 
             <footer>
                 <span id = "state">dolore aliquip fabulas noster</span>
-                <span id = "copyright">Designed and Developed by <a href="#">TheCrazyOnes</a></span>
+                <span id = "copyright">Designed and Developed by <a onclick="ShowAbout();">TheCrazyOnes</a></span>
             </footer>
 
+            <div class="full-page layer-4 animated">
+<!--                wobble-->
+                <div id = "login" class="login-form absolute-center animated fadeInRightBig" style="z-index: 2;">
+                    <input id = "employee-number" type="text" placeholder="Empoyee Number e.g. E2011100000">
+                    <input id = "password" type="password" placeholder="Password">
+                    <a onclick="GoToRegister();" style="font-size: 14px;">Create an account</a>
+                    <div id = "state" style="width: 200px;"></div>
+                    <div onclick="Login();" class="btn blue pull-right">Login</div>
+                </div>
+                
+                <div id = "register" class = "login-form absolute-center animated" style="height: 210px; opacity: 0; transition: 0.5s;">
+                    <input id = "name" type="text" placeholder="Lastname, First Name">
+                    <input id = "employee-number" type="text" placeholder="Empoyee Number e.g. E2011100000">
+                    <input id = "password" type="password" placeholder="Password">
+                    <input id = "confirm-password" type="password" placeholder="Confirm Password">
+                    <div id = "state" style="width: 115px;"></div>
+                    <div onclick="Register();" class="btn blue pull-right">Register</div>
+                    <div onclick="BackToLogin();" class="btn gray pull-right">Cancel</div>
+                </div>
+                
+                <div id = "login-logo" class="absolute-center">
+                    <img src="images/logo-blue.png">
+                    <span>FOGS</span>
+                </div>
+                
+            </div>
+            
 <!--
             <div class = "notification-fader">
             </div>

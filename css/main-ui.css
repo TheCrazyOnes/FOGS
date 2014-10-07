@@ -47,6 +47,8 @@ header #head #logo {
     height: 100%;
     line-height: 70px;
     cursor: pointer;
+    
+    background-image: url(../images/logo.png);
 }
 
 header #head #subject-name {
@@ -67,9 +69,10 @@ header #head #user {
     border-right: 3px solid #0af;
     position: relative;
     overflow: hidden;
+    min-width: 90px;
 }
 
-header #head #user span{
+header #head #user>span{
     position: absolute;
     height: 100%;
     width: 100%;
@@ -77,19 +80,25 @@ header #head #user span{
     right: -100%;
     background-color: #555;
     transition: 0.5s;
-    padding-top: 12px;
+/*    padding-top: 12px;*/
     text-align: center;
     color: #0af;
     cursor: pointer;
 }
 
 header #head #user:hover span{
-    
     right: 0%;
 }
 
-header #head #user:hover{
-    
+header #head #user>span>span{
+    height: 50%;
+    display: block;
+    line-height: 20px;
+}
+
+header #head #user>span>span:hover{
+    background-color: #0af;
+    color: black;
 }
 
 header #head #user strong{
@@ -384,6 +393,13 @@ body>.inner>#body>.side-bar>ul.students>li:hover{
     vertical-align: middle;
 }
 
+.window .action-menu .status{
+    width: 50px;
+    padding-top: 5px;
+    padding-bottom: 20px;
+    border: 1px solid transparent;
+}
+
 footer{
     position: absolute;
     bottom: 0px;
@@ -402,4 +418,67 @@ footer #copyright{
     float: right;
     text-align: right;
     padding: 0px 5px;
+}
+.full-page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #222;
+}
+
+#login-logo {
+    font-size: 2em;
+    color: white;
+    width: 230px;
+    height: 150px;
+    padding-bottom: 320px;
+/*    outline: 1px solid red;*/
+    text-align: center;
+    padding-right: 20px;
+    -webkit-user-select: none;
+}
+
+#login-logo span{
+    font-family: walkway;
+    margin-top: 20px;
+    position: relative;
+    top: 5px;
+    left: -20px;
+}
+
+.login-form{
+    z-index: 1;
+    width:300px; 
+    height: 165px;
+    background-color: #333;
+    padding: 10px;
+    color: #AAA;
+    font-size: 16px;
+}
+
+.login-form input{
+    background-color: #222;
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.login-form a{
+    color: #666;
+    display: block;
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+.login-form a:hover{
+    color: #0af;
+}
+
+.login-form #state{
+    color: #f77;
+    font-size: 13px;
+    display: inline-block;
+    -webkit-user-select: none;
 }
