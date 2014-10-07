@@ -20,7 +20,7 @@ function Initialize()
     $(".login-form#login").css("opacity",0);
     
     $.post("php/frontend-com.php", {method: "Initialize"}, function(data){
-        
+
         data = JSON.parse(data);
 
         setTimeout(function(){
@@ -74,7 +74,6 @@ function Login()
     
     $.post("php/frontend-com.php", vals, function(data){
         
-        
         data = JSON.parse(data);
         
         if(data.state == "error")
@@ -84,7 +83,7 @@ function Login()
         }
         else
         {
-            ExitLoginForm(data);
+            ExitLoginForm(data.credentials );
             ResetLoginFormFields();
             
         }
@@ -154,7 +153,6 @@ function Register()
 
 
         data = JSON.parse(data);
-
         
         
         if(data.state == "error")
@@ -164,7 +162,7 @@ function Register()
         }
         else
         {
-            ExitLoginForm(data);
+            ExitLoginForm(data.credentials );
             ResetLoginFormFields();
         }
         
@@ -179,9 +177,11 @@ function ExitLoginForm(data)
     userInfo.Name = data.Name;
     userInfo.EmployeeNumber = data.EmployeeNumber;
     
+//    alert(userInfo.Name);
 //    alert(userInfo.Name.split(",")[0]);
     $("header #head #user>strong").html(userInfo.Name.split(",")[0]);
     $("header #head #user>div").html(userInfo.Name.split(",")[1]);
+//    alert(userInfo.EmployeeNumber);
     $("header #head #user>span>span:last-child").html(userInfo.EmployeeNumber);
     $(".login-form#login").removeClass("animated");
     Animate(".login-form#login", "fadeOutDown",function(){},1000,true);
@@ -230,10 +230,13 @@ function BackToLogin()
 
 function Logout()
 {
+    $("#universal-progress").removeClass().addClass("p-50");
     $.post("php/frontend-com.php",{method:"Logout"},function(data){
         
+        $("#universal-progress").removeClass().addClass("p-100");
         Animate("#login-menu", "fadeInDown", function(){
             Initialize();
+            $("#universal-progress").removeClass();
         }, 1000, true);
     });
 }

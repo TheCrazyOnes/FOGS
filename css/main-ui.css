@@ -115,21 +115,24 @@ header #head #user div{
 }
 
 
-
-header #progress{
+header #universal-progress{
     width: 100%;
     position: absolute;
     height: 2px;
     background-color: #222;
 }
 
-header #progress #value{
-    width: 80%;
+header #universal-progress #value{
+    width: 0%;
     position: absolute;
     height: 2px;
     transition: 0.5s;
     background-color: #0af;
 }
+
+#universal-progress.p-50 #value{width: 50%;}
+#universal-progress.p-25 #value{width: 25%;}
+#universal-progress.p-100 #value{width: 100%;}
 
 header #menu {
     height: 40%;
