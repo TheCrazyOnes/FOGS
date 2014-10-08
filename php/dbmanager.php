@@ -90,6 +90,13 @@ function SQLArrayToJSON($ret)
     return json_encode($arr);
 }
 
+function IsRecordExisting($table, $field, $record)
+{
+    $ret = QuerySingleRow("SELECT * FROM $table WHERE $field = $record");
+    
+    return count($ret) != 0;
+}
+
 
 function SanitizeArray($arr)
 {

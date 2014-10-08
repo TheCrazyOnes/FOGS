@@ -30,7 +30,7 @@ var PopupWindow = {
     </div>\
 </div>\
     ',
-    
+    Object: null,
     Show : function(options){
         
         var delay = 0;
@@ -47,6 +47,7 @@ var PopupWindow = {
             options = options || {};
 
             var defaultOptions = {
+                Type: "",
                 Content: windowContent.Simple, 
                 ActionButtons: '<a onclick = "PopupWindow.Close();" class="btn gray pull-right">Done</a>',
                 Title: "Menu",
@@ -57,13 +58,16 @@ var PopupWindow = {
             
             defaultOptions = MergeArray(defaultOptions, options);
 
-
+            
             $("body>.inner").append(PopupWindow.Html);
             $(".window .body").html(defaultOptions.Content);
             $(".window").css({width: defaultOptions.Size.Width + "px", height: defaultOptions.Size.Height + "px"})
+            $(".window .title").addClass(defaultOptions.Type);
             $(".window .title #text").html(defaultOptions.Title);
             $(".window .action-menu").append(defaultOptions.ActionButtons);
 
+            PopupWindow.Object = $(".window");
+            
             defaultOptions.OnRender();
             
             setTimeout(function(){
@@ -76,6 +80,9 @@ var PopupWindow = {
     },
     
     Close : function(){
+        
+        PopupWindow.OnClose();
+        
         $(".window").addClass("fadeOutDown");
         $(".notification-fader").addClass("fadeOut");
         
@@ -86,9 +93,49 @@ var PopupWindow = {
         
         PopupWindow.IsOpen = false;
     },
+    OnClose : function (){
+        
+    },
     IsOpen : false
     
 }
+
+function ShowErrorMessage(title, msg, callback, width, height)
+{
+    width = width || 250;
+    height = height || 155;
+    PopupWindow.Show({
+        Type: "error",
+        Content: windowContent.Simple, 
+        Title: title, 
+        ActionButtons: '<a tabindex=0 onclick = "'+callback+'();" class="btn gray pull-right">OK</a>',
+        Size: {Width: width, Height: height}, 
+        OnRender:function(){
+            $(".window .body .inner").html(msg);    
+        }
+    });
+}
+
+jQuery.fn.extend({
+    StartLoading: function() {
+        return this.each(function() {
+            $(this).waitMe({
+                effect : 'stretch',
+                text : '',
+                bg : "transparent",
+                color : "#999",
+                sizeW : '',
+                sizeH : ''
+            });
+
+        });
+    },
+    StopLoading: function() {
+        return this.each(function() {
+            $(this).waitMe("hide");
+        });
+    }
+});
 
 function MergeArray(a1, a2)
 {
@@ -105,7 +152,7 @@ function Animate(selector, animation, callback, delay, remove)
     delay = delay || 500;
     remove = remove || false;
     
-    var animations = ["animated","bounce","flash","pulse","rubberBand","shake","swing","tada","wobble","bounceIn","bounceInDown","bounceInLeft","bounceInRight","bounceInUp","Bouncing Exits","bounceOut","bounceOutDown","bounceOutLeft","bounceOutRight","bounceOutUp","fadeIn","fadeInDown","fadeInDownBig","fadeInLeft","fadeInLeftBig","fadeInRight","fadeInRightBig","fadeInUp","fadeInUpBig","fadeOut","fadeOutDown","fadeOutDownBig","fadeOutLeft","fadeOutLeftBig","fadeOutRight","fadeOutRightBig","fadeOutUp","fadeOutUpBig","flip","flipInX","flipInY","flipOutX","flipOutY","Lightspeed","lightSpeedIn","lightSpeedOut","rotateIn","rotateInDownLeft","rotateInDownRight","rotateInUpLeft","rotateInUpRight","rotateOut","rotateOutDownLeft","rotateOutDownRight","rotateOutUpLeft","rotateOutUpRight","hinge","rollIn","rollOut","zoomIn","zoomInDown","zoomInLeft","zoomInRight","zoomInUp","zoomOut","zoomOutDown","zoomOutLeft","zoomOutRight","zoomOutUp"];
+    var animations = ["animated", "slideInDown", "slideInLeft", "slideInRight", "slideInUp", "slideOutDown","slideOutUp", "slideOutLeft", "slideOutRight", "bounce","flash","pulse","rubberBand","shake","swing","tada","wobble","bounceIn","bounceInDown","bounceInLeft","bounceInRight","bounceInUp","Bouncing Exits","bounceOut","bounceOutDown","bounceOutLeft","bounceOutRight","bounceOutUp","fadeIn","fadeInDown","fadeInDownBig","fadeInLeft","fadeInLeftBig","fadeInRight","fadeInRightBig","fadeInUp","fadeInUpBig","fadeOut","fadeOutDown","fadeOutDownBig","fadeOutLeft","fadeOutLeftBig","fadeOutRight","fadeOutRightBig","fadeOutUp","fadeOutUpBig","flip","flipInX","flipInY","flipOutX","flipOutY","Lightspeed","lightSpeedIn","lightSpeedOut","rotateIn","rotateInDownLeft","rotateInDownRight","rotateInUpLeft","rotateInUpRight","rotateOut","rotateOutDownLeft","rotateOutDownRight","rotateOutUpLeft","rotateOutUpRight","hinge","rollIn","rollOut","zoomIn","zoomInDown","zoomInLeft","zoomInRight","zoomInUp","zoomOut","zoomOutDown","zoomOutLeft","zoomOutRight","zoomOutUp"];
     
     animations.forEach(function(e,i){
         $(selector).removeClass(e);

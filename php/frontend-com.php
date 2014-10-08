@@ -6,7 +6,7 @@
 
     if(isset($_POST['method']))
     {
-        sleep(1);
+        sleep(0);
         session_start();
         $_POST = SanitizeArray($_POST);
         call_user_func($_POST['method']); 

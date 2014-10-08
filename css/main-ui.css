@@ -286,6 +286,10 @@ body>.inner>#body>.side-bar>ul.students>li:hover{
 }
 */
 
+.window .title.error{
+    background-color: #f33;
+}
+
 .window .title{
     background-color: #0AF;
     color: black;
@@ -442,6 +446,8 @@ footer #copyright{
 
 #login-menu.loading #login{
     opacity: 0;
+    border: 1px solid red;
+    visibility: hidden;
 }
 
 #login-logo.loading {

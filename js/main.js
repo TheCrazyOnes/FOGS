@@ -107,9 +107,12 @@ function NewSubject()
         Content: windowContent.Simple, 
         Title: "New Subject", 
         ActionButtons: '<a tabindex=0 onclick = "NewSubjectRequest();" class="btn blue pull-right">Create</a> <a tabindex=0 onclick = "PopupWindow.Close();" class="btn gray pull-right">Cancel</a>',
-        Size: {Width: 250, Height: 155}, 
+        Size: {Width: 250, Height: 200}, 
         OnRender:function(){
-            $(".window .body .inner").html("Subject name <input type = 'text' placeholder='Type subject name here' style='display: block; width: 100%'>");    
+            $(".window .body .inner").html("\
+               Subject name <input type = 'text' placeholder='Type subject name here' style='display: block; width: 100%'>\
+               Description <input type = 'text' placeholder='Type subject description here' style='display: block; width: 100%'>\
+           ");    
         }
     });
     
@@ -117,9 +120,42 @@ function NewSubject()
 
 function NewSubjectRequest()
 {
-    var subjectName = $(".window .body .inner input").val();
-    alert("creating new subject with name: " + subjectName);
-    PopupWindow.Close();
+    var vars = {};
+    
+    vars.SubjectName = $(".window .body .inner input")[0].value;
+    vars.Description = $(".window .body .inner input")[1].value;
+    vars.method = "NewSubject";
+
+    if(vars.SubjectName.trim().length == 0)
+    {
+        ShowErrorMessage("Oops", "Please provide a subject name.", "NewSubject");
+        return;
+    }
+    
+    PopupWindow.Object.StartLoading();
+    
+    $.post("php/frontend-com.php", vars, function(data){
+        
+        data = JSON.parse(data);
+        
+        if(data.State == "error")
+            ShowErrorMessage("Oops", data.Reason, "NewSubject");
+        else
+        {
+            PopupWindow.Show({ 
+                Content: windowContent.Simple, 
+                Title: "Subject created", 
+                ActionButtons: '<a tabindex=0 onclick = "LoadSubject();" class="btn blue pull-right">Open</a> <a tabindex=0 onclick = "PopupWindow.Close();" class="btn gray pull-right">Not now</a>',
+                Size: {Width: 250, Height: 155}, 
+                OnRender:function(){
+                    $(".window .body .inner").html('Subject named "'+vars.SubjectName+'" created. Do you want it to open now?');    
+                }
+            });
+        }
+        
+        
+    });
+    
     
 }
 
@@ -138,7 +174,7 @@ function OpenSubject()
             $(".window .body ul").waitMe({
                 effect : 'stretch',
                 text : '',
-                bg : "transparent",
+                bg : "#333",
                 color : "#999",
                 sizeW : '',
                 sizeH : ''
@@ -198,7 +234,7 @@ function DeleteCurrentSubjectConfirm()
 {
     PopupWindow.Show({ 
         Content: windowContent.Simple, 
-        Title: "New Subject", 
+        Title: "Delete Current Subject", 
         ActionButtons: '<a tabindex=0 onclick = "DeleteCurrentSubjectRequest();" class="btn red pull-right">Delete</a> <a tabindex=0 onclick = "PopupWindow.Close();" class="btn gray pull-right">Cancel</a>',
         Size: {Width: 250, Height: 175},
         OnRender : function(){

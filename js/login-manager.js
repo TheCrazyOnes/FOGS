@@ -42,7 +42,7 @@ function Initialize()
 
             },500);
 
-        },1000);
+        },0);
 
     });
 }
@@ -184,9 +184,9 @@ function ExitLoginForm(data)
 //    alert(userInfo.EmployeeNumber);
     $("header #head #user>span>span:last-child").html(userInfo.EmployeeNumber);
     $(".login-form#login").removeClass("animated");
-    Animate(".login-form#login", "fadeOutDown",function(){},1000,true);
+//    Animate(".login-form#login", "fadeOutDown",function(){},1000,true);
     
-    Animate("#login-menu", "fadeOutDown", function(){
+    Animate("#login-menu", "slideOutDown", function(){
         
     }, 1000);
 }
@@ -234,7 +234,8 @@ function Logout()
     $.post("php/frontend-com.php",{method:"Logout"},function(data){
         
         $("#universal-progress").removeClass().addClass("p-100");
-        Animate("#login-menu", "fadeInDown", function(){
+        $("#login-menu").addClass("loading");
+        Animate("#login-menu", "slideInDown", function(){
             Initialize();
             $("#universal-progress").removeClass();
         }, 1000, true);
