@@ -137,6 +137,13 @@ jQuery.fn.extend({
     }
 });
 
+function AlertOnError(data)
+{
+    if(data.indexOf("You have") != -1)
+        alert(data);
+        
+}
+
 function MergeArray(a1, a2)
 {
     $.each(a2,function(key,value){

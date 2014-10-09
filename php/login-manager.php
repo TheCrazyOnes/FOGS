@@ -62,4 +62,9 @@
         session_destroy();
     }
 
+    function ViewSessionContent()
+    {
+        echo json_encode($_SESSION);
+    }
+
 ?>

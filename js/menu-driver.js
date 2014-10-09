@@ -2,10 +2,10 @@ $(document).ready(function(){
     
 });
 
-var currentSubject = -1;
-var selectedSubject = -1;
-
-var userInfo = {};
+var userInfo = {
+	currentSubject : -1,
+	selectedSubject : -1
+};
 
 function UniversalKeyUp()
 {
@@ -135,7 +135,7 @@ function NewSubjectRequest()
     PopupWindow.Object.StartLoading();
     
     $.post("php/frontend-com.php", vars, function(data){
-        
+
         data = JSON.parse(data);
         
         if(data.State == "error")
@@ -145,14 +145,13 @@ function NewSubjectRequest()
             PopupWindow.Show({ 
                 Content: windowContent.Simple, 
                 Title: "Subject created", 
-                ActionButtons: '<a tabindex=0 onclick = "LoadSubject();" class="btn blue pull-right">Open</a> <a tabindex=0 onclick = "PopupWindow.Close();" class="btn gray pull-right">Not now</a>',
+                ActionButtons: '<a tabindex=0 onclick = "LoadSubject('+data.SubjectID+');" class="btn blue pull-right">Open</a> <a tabindex=0 onclick = "PopupWindow.Close();" class="btn gray pull-right">Not now</a>',
                 Size: {Width: 250, Height: 155}, 
                 OnRender:function(){
                     $(".window .body .inner").html('Subject named "'+vars.SubjectName+'" created. Do you want it to open now?');    
                 }
             });
         }
-        
         
     });
     
@@ -180,13 +179,11 @@ function OpenSubject()
                 sizeH : ''
             });
             
-            
-            $.post("php/frontend-com.php", {method:"OpenSubject"}, function(data){
+            $.post("php/frontend-com.php", {method:"ViewSubjects"}, function(data){
                 var str = "";
-                
                 data = JSON.parse(data);
                 Iterate(function(i){
-                    $(".window .body ul").append("<li tabindex=0 data-id='"+data[i].id+"' onclick='SelectSubjectItem(this)' onfocus='SelectSubjectItem(this)'>"+data[i].name+"</li>");
+					$(".window .body ul").append("<li tabindex=0 data-enrollees = '"+data[i].Enrollees+"' data-description = '"+data[i].Description+"' data-id='"+data[i].SubjectID+"' onclick='SelectSubjectItem(this)' onfocus='SelectSubjectItem(this)'>"+data[i].Name+"</li>");
                     
                 }, data.length, 50);
                 
@@ -206,15 +203,19 @@ function OpenSubjectRequest()
         sizeW : '',
         sizeH : ''
     });
-    alert("Opening subject with id " + selectedSubject);
+	
+	LoadSubject(userInfo.selectedSubject);
+	
+//    alert("Opening subject with id " + userInfo.selectedSubject);
+	
     $(".window .status").waitMe("hide");
     PopupWindow.Close();
 }
 
 function SelectSubjectItem(sender)
 {
-    selectedSubject = $(sender).attr("data-id");
-    
+    userInfo.selectedSubject = $(sender).attr("data-id");
+	$(".window #description").html($(sender).attr("data-description") + "<br><br>Enrollees: " + $(sender).attr("data-enrollees"));
 }
 
 function DeleteCurrentSubject()

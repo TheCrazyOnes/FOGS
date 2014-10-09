@@ -11,9 +11,12 @@ function NewSubject()
         die(json_encode($data));
     }
     else
-    {
+	{
         global $link;
-        $ret = ExecuteQuery("INSERT INTO Subject(`Name`,`Description`,`EmployeeNumber`) VALUES('{$_POST['SubjectName']}','{$_POST['Description']}','{$_SESSION['EmployeeID']}')");
+		$_POST["Description"] = htmlspecialchars($_POST["Description"]);
+		$_POST["SubjectName"] = htmlspecialchars($_POST["SubjectName"]);
+		
+    	$ret = ExecuteQuery("INSERT INTO Subject(`Name`,`Description`,`EmployeeNumber`) VALUES('{$_POST['SubjectName']}','{$_POST['Description']}','{$_SESSION['EmployeeNumber']}')");
         
         $data["State"] = "success";
         $data["Message"] = "Successfuly created a new subject.";    
@@ -24,22 +27,24 @@ function NewSubject()
     
 }
 
-function OpenSubject()
+function ViewSubjects()
 {
-    $arr = [];
     
-    for($i = 0; $i < 20; $i++)
-    {
-        $arr[count($arr)]["id"] = $i;
-        $arr[count($arr) -1 ]["name"] = "Lorem";
-    }
-    
-    echo json_encode($arr);
+	$data = SQLArrayToArray(ExecuteQuery("SELECT Subject.* FROM Subject WHERE EmployeeNumber = '{$_SESSION['EmployeeNumber']}'"));
+
+	for($i = 0; $i < count($data); $i++)
+	{
+		$data[$i]["Enrollees"] = QuerySingleRow("SELECT COUNT(*) as c FROM Enrollment WHERE SubjectID = {$data[$i]['SubjectID']}")["c"];
+	}
+
+	echo json_encode($data);
 }
 
 function DeleteCurrentSubject()
 {
     echo "Delete current Subject";
 }
+
+
 
 ?>
