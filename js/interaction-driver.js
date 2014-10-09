@@ -187,9 +187,13 @@ function Animate(selector, animation, callback, delay, remove)
 function Iterate(callback, repetitions,delay)
 {
     var i = 0;
+	
     var iterator = setInterval(function(){
         if(repetitions == i)
+		{
+			return;
             clearTimeout(iterator);
+		}
 
         callback(i);
 

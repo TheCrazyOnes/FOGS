@@ -15,6 +15,8 @@
         
         $data["Students"] = SQLArrayToArray(ExecuteQuery("SELECT Student.* FROM Student, Enrollment WHERE SubjectID = {$_POST['SubjectID']} AND Enrollment.StudentNumber = Student.StudentNumber"));
         
+		$_SESSION['SubjectID'] = $_POST['SubjectID'];
+		
         echo json_encode($data);
         
     }

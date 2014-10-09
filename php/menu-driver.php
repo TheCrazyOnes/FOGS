@@ -1,5 +1,37 @@
 <?php
 
+/////Student Menu//////
+
+function NewStudent()
+{
+	
+	if(IsRecordExisting("Student", "StudentNumber", "'{$_POST['StudentNumber']}'"))
+	{
+		$data["State"] = 'error';
+		$data["Reason"] ='Student number already exists';
+		
+		die(json_encode($data));
+	}
+	else
+	{
+		ExecuteQuery("INSERT INTO Student(`Name`, `StudentNumber`, `ProfessorEmployeeNumber`) VALUES('{$_POST['StudentName']}','{$_POST['StudentNumber']}','{$_SESSION['EmployeeNumber']}')");
+		
+		$data["State"] = 'success';
+		echo json_encode($data);
+	}
+	
+}
+
+function ViewStudents()
+{
+	$students = SQLArrayToArray(ExecuteQuery("SELECT * FROM Student WHERE ProfessorEmployeeNumber = '{$_SESSION['EmployeeNumber']}'"));
+	$data = SQLArrayToArray(ExecuteQuery("SELECT * FROM Enrollment WHERE SubjectID = {$_SESSION['SubjectID']}"));
+	
+	
+	echo json_encode($data);
+	
+}
+
 /////Subject menu/////
 
 function NewSubject()

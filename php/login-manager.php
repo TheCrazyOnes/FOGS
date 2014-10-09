@@ -6,7 +6,13 @@
         {
             $data["EmployeeNumber"] = $_SESSION["EmployeeNumber"];
             $data["Name"] = $_SESSION["Name"];
-            
+        
+			
+			if(isset($_SESSION['Subject']))
+			{
+				//load subject details
+			}
+			
             echo json_encode($data);
         }
         else
@@ -15,6 +21,7 @@
             
             echo json_encode($data);
         }
+		
     }
 
     function Login()

@@ -24,7 +24,7 @@ function AddStudent()
     PopupWindow.Show({ 
         Content: windowContent.OpenMenu, 
         Title: "Add Students", 
-        ActionButtons: '<a onclick = "AddStudentRequest();" class="btn blue pull-right">Add</a> <a onclick = "PopupWindow.Close();" class="btn gray pull-right">Cancel</a>',
+		ActionButtons: '<a onclick = "AddStudentRequest();" class="btn blue pull-right">Add</a> <a onclick = "PopupWindow.Close();" class="btn gray pull-right">Cancel</a> <a onclick = "NewStudent();" class="btn gray pull-right">Create students</a>',
         OnRender:function(){
 
             $(".window .body ul").waitMe({
@@ -37,17 +37,20 @@ function AddStudent()
             });
 
 
-            $.post("php/frontend-com.php", {method:"AddStudents"}, function(data){
-                var str = "";
-                var i = 0;
-
-                Iterate(function(){
-                    i++;
+            $.post("php/frontend-com.php", {method:"ViewStudents"}, function(data){
+				
+//				alert(data);
+				
+				data = JSON.parse(data);
+				
+                Iterate(function(i){
 //                    $(".window .body ul").append("<li tabindex=0 data-id='"+i+"' onclick='SelectSubjectItem(this)' onfocus='SelectSubjectItem(this)'>lorem</li>");
-                    $(".window .body ul").append("<li data-id='"+i+"' onclick='$(this).toggleClass(\"selected\");'>lorem ipsum</li>");
+					$(".window .body ul").append("<li data-student-number='"+data[i].StudentNumber+"' onclick='$(this).toggleClass(\"selected\");'>"+ data[i].StudentNumber + " | "+data[i].Name+"</li>");
 
-                }, 30, 50);
+                }, data.length , 50);
 
+				$(".window .body #description").html("Showing " + data.length + " student(s)");
+				
                 $(".window .body ul").waitMe("hide");
             });
         }
@@ -59,7 +62,7 @@ function AddStudentRequest()
     var ids = [];
     
     $(".window .body ul li.selected").each(function(i,e){
-        ids[ids.length] = $(e).attr("data-id");
+        ids[ids.length] = $(e).attr("data-student-number");
     });
     
     alert("Add student Request with ids: " + JSON.stringify(ids));
@@ -72,7 +75,7 @@ function NewStudent()
         Content: windowContent.Simple, 
         Title: "New Student", 
         ActionButtons: '<a tabindex=0 onclick = "NewStudentRequest();" class="btn blue pull-right">Create</a> <a tabindex=0 onclick = "NewStudentRequest(true);" class="btn blue pull-right">Create more</a> <a tabindex=0 onclick = "PopupWindow.Close();" class="btn gray pull-right">Cancel</a>',
-        Size: {Width: 279, Height: 205}, 
+        Size: {Width: 281, Height: 205}, 
         OnRender:function(){
             var str = "Student number <input id = 'studentNumber'type = 'text' placeholder='S2011100000' style='display: block; width: 100%'>";
             str += "Student name <input id = 'studentName' type = 'text' placeholder='Lastname, First Name' style='display: block; width: 100%'>"
@@ -86,14 +89,49 @@ function NewStudentRequest(more)
 {
     more = more || false;
     
-    var studentNumber = $(".window .body .inner #studentNumber").val();;
-    var studentName = $(".window .body .inner #studentName").val();
-    alert("new student with name: " + studentName + " and student ID : " + studentNumber);
+	var vars = {};
+	
+	vars.method = "NewStudent";
+    vars.StudentNumber = $(".window .body .inner #studentNumber").val();
+    vars.StudentName = $(".window .body .inner #studentName").val();
     
-    if(more)
-        NewStudent();
-    else
-        PopupWindow.Close();
+	
+	if(vars.StudentNumber.trim().length == 0)
+	{
+		ShowErrorMessage("Oops", "Please provide a student number.", "NewStudent");
+		return;
+	}
+	
+	if(vars.StudentName.trim().length == 0)
+	{
+		ShowErrorMessage("Oops", "Please provide a student name.", "NewStudent");
+		return;
+	}
+
+	
+	$.post("php/frontend-com.php",vars,function(data){
+
+		
+		
+		data = JSON.parse(data);
+		
+		
+		if(data.State == "error")
+		{
+		
+			ShowErrorMessage("Oops", data.Reason, "NewStudent");
+		}
+		else
+		{
+		
+			if(more)
+				NewStudent();
+			else
+				PopupWindow.Close();
+		}
+		
+	});
+    
 }
 
 
@@ -205,8 +243,6 @@ function OpenSubjectRequest()
     });
 	
 	LoadSubject(userInfo.selectedSubject);
-	
-//    alert("Opening subject with id " + userInfo.selectedSubject);
 	
     $(".window .status").waitMe("hide");
     PopupWindow.Close();
