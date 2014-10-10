@@ -23,12 +23,13 @@ function ResetSubject()
 	$(".main #components").html("");
 	$("#student-name").html("");
 	$("#final-grade").html("");
-	$(".main").addClass("disabled");
+	$("#grade-editor").addClass("disabled");
 }
 
 function ImplementSubject(data)
 {
-	$(".main").removeClass("disabled");
+	$("#grade-editor").removeClass("disabled").css({"display":"block"});
+	
 	userInfo.SubjectDetails = data.SubjectDetails;
 	$("#subject-name>span:first-child").html(data.SubjectDetails.Name);
 	
@@ -121,6 +122,10 @@ function ImplementStudentList(data)
 
 function SelectStudent(selected)
 {
+	$(".main #grade-editor").css("display", "block");
+	$(".main #grade-editor~*").css("display", "none");
+	
+	
 	$(selected).siblings().removeClass("selected");
 	$(selected).addClass("selected");
 	userInfo.SelectedStudent = $(selected).attr("data-student-number");
@@ -161,12 +166,12 @@ function ImplementStudentRecord(data)
 //	FillFields(data.Grade, ".main #components");
 	
 	var finalGrade = 0;
-	$(".main>#components>.panel-group>.panel>.panel-heading .value").each(function(i,e){
+	$(".main #components>.panel-group>.panel>.panel-heading .value").each(function(i,e){
 		var str = $(e).html();
 		finalGrade += parseFloat(str.substr(0,str.length -1));
 	});
 	
-	$("#final-grade").html(finalGrade+"%");
+	$("#final-grade").html(MaxLength(finalGrade,5)+"%");
 }
 
 function FillFields(node, parent)
@@ -195,6 +200,10 @@ function FillFields(node, parent)
 function MaxLength(str, length)
 {
 	str += "";
+	
+	if(str.indexOf("und") != -1)
+		str = "0";
+	
 	if(str.length < length)
 		length = str.length;
 	
@@ -297,3 +306,13 @@ function clone(obj) {
 	}
 	return copy;
 }
+
+Array.prototype.clean = function(deleteValue) {
+	for (var i = 0; i < this.length; i++) {
+		if (this[i] == deleteValue) {         
+			this.splice(i, 1);
+			i--;
+		}
+	}
+	return this;
+};

@@ -17,7 +17,217 @@ function UniversalKeyUp()
 }
 
 
+/*==========================*/
+/*=======Reports menu======*/
+/*========================*/
 
+function DownloadReport()
+{
+	$.post("php/frontend-com.php",{method:"ViewSubjectRecords"},function(data){
+
+
+		data = JSON.parse(data);
+		
+		var head = [];
+		var tmpField = userInfo.SubjectDetails.Component;
+		head[head.length] = "<th>Name</th>";
+		GetFields(tmpField, head, 0);
+		head[head.length] = "<th>Final Grade</th>";
+		$("#reports table thead tr").append(head.join("\n"));
+
+		var strToSend = "";
+		
+		head = head.join("");
+
+		head = head.split(/<\/?th.{0,19}>/g).clean("");
+		
+		strToSend += head.join(",") + "<br>";
+		
+		for(var i =0; i < data.length; i++)
+		{
+			var str = [];
+
+			var tmp = clone(userInfo.SubjectDetails.Component);
+
+			MergeComponent(tmp, data[i].Grade);
+
+			var finalGrade = 0;
+			for (var key in tmp) {
+				if(typeof tmp[key] == "object")
+					finalGrade += tmp[key].sub.value;
+			}
+
+			var state = "";
+			if(finalGrade < 75)
+			{
+				state = "fail";
+			}
+
+			str[str.length] = "<tr class = '"+state+"'>";
+			str[str.length] = "<td>" + data[i].Name + "</td>";
+			GetGrades(tmp, str, 0);
+			str[str.length] = "<td>"+finalGrade+"%</td>";
+			str[str.length] = "<td></td>";
+			str[str.length] = "</tr>";
+			
+
+			str = str.join("").split(/<\/?td?r?[^>]*>/g).clean("");
+			
+			strToSend += "'"+str.join("','") + "'" + "<br>";
+		}
+		
+//		alert(strToSend);
+		
+		$.post("php/frontend-com.php",{method: "DownloadReport", data: strToSend}, function(data){
+			data = JSON.parse(data);
+			PopupWindow.Show({ 
+				Content: windowContent.Simple, 
+				Title: "Download Report", 
+				ActionButtons: '<a tabindex=0 href="'+data.link+'" onclick = "PopupWindow.Close();" class="btn blue pull-right">Download</a> <a tabindex=0 onclick = "PopupWindow.Close();" class="btn gray pull-right">Cancel</a>',
+				Size: {Width: 281, Height: 155}, 
+				OnRender:function(){
+					var str = "You request is ready to download";
+					$(".window .body .inner").html(str);    
+				}
+			});
+//			alert(data);
+		});
+		
+	});
+}
+
+
+function ViewSubjectRecords()
+{
+	$(".main").waitMe({
+		effect : 'stretch',
+		text : 'Crunching data...',
+		bg : "#BBB",
+		color : "#333"
+	});
+	$(".main #grade-editor").css("display","none");
+	$(".main #reports").css("display","block");
+	
+	$(".main #reports thead tr").html("<th>Name</th>");
+	$(".main #reports tbody").html("");
+	
+	var vars = {method: "ViewSubjectRecords"};
+	
+	$.post("php/frontend-com.php",vars,function(data){
+		data = JSON.parse(data);
+		
+		var head = []
+		var tmpField = userInfo.SubjectDetails.Component;
+		GetFields(tmpField, head, 0);
+		head[head.length] = "<th class = 'final'>Final Grade</th>";
+		head[head.length] = "<th>&nbsp;</th>";
+		$("#reports table thead tr").append(head.join("\n"));
+		
+		for(var i =0; i < data.length; i++)
+		{
+			var str = [];
+			
+			var tmp = clone(userInfo.SubjectDetails.Component);
+			
+			MergeComponent(tmp, data[i].Grade);
+
+			
+			var finalGrade = 0;
+			for (var key in tmp) {
+//				alert(JSON.stringify(tmp[key]));
+				if(typeof tmp[key] == "object")
+					finalGrade += tmp[key].sub.value;
+			}
+			
+			var state = "";
+			if(finalGrade < 75)
+			{
+				state = "fail";
+			}
+			
+			
+			str[str.length] = "<tr class = '"+state+"'>";
+			str[str.length] = "<td>" + data[i].Name + "</td>";
+
+			
+			GetGrades(tmp, str, 0);
+			
+			str[str.length] = "<td>"+MaxLength(finalGrade,5)+"%</td>";
+			str[str.length] = "<td></td>";
+			str[str.length] = "</tr>";
+			
+			
+			$("#reports table tbody").append(str.join("\n"));
+			
+			var widest = 0;
+			$("#reports table tbody td:first-child").each(function(i,e){
+				if(widest < $(e).outerWidth())
+					widest = $(e).outerWidth();
+			})
+			
+			$("#reports table td:first-child, #reports table th:first-child").css("width", widest + "px");
+			$("#reports table").css("margin-left", widest - 10 + "px");
+		}
+		
+		$(".main").waitMe("hide");
+	});
+	
+	
+	
+}
+
+function GetFields(node,str,level)
+{
+	for (var key in node) 
+	{
+
+		if(node[key].sub != null)
+		{
+			str[str.length] = "<th class = 'level-"+level+"'>" + key +"</th>";
+			GetFields(node[key].sub, str, ++level);
+			--level;
+		}
+		else
+		{
+			str[str.length] = "<th class = 'level-"+level+"'>" + key +"</th>";
+//			str[str.length] = "<td>" + node[key].grade + "</td>";	
+		}
+	}
+}
+
+function GetGrades(node, str, level)
+{
+	for (var key in node) 
+	{
+
+		if(node[key].sub != null)
+		{
+			var state = "";
+			if(node[key].sub.grade < 75)
+				state = "fail";
+			
+			str[str.length] = "<td class = 'level-"+level+" "+state+"'>" + MaxLength(node[key].sub.grade,5) +"%</td>";
+			GetGrades(node[key].sub, str, ++level);
+			--level;
+		}
+		else
+		{
+			if(key == "grade" || key == "value")
+			{
+				--level;	
+				return;
+			}
+			
+			var state = "";
+			if(node[key].grade < 75)
+				state = "fail";
+			
+			str[str.length] = "<td class = 'level-"+level+" "+state+"'>" + MaxLength(node[key].grade,5) + "%</td>";	
+		}
+	}
+	
+	--level;
+}
 
 /*==========================*/
 /*======Component menu=====*/

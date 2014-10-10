@@ -1,4 +1,38 @@
 <?php
+/////reports menu//////
+
+function ViewSubjectRecords()
+{
+//	sleep(2);
+	$students = SQLArrayToArray(ExecuteQuery("SELECT * FROM Student, Enrollment WHERE Student.StudentNumber = Enrollment.StudentNumber AND SubjectID = {$_SESSION['SubjectID']} ORDER BY Name"));
+
+	foreach($students as &$student)
+	{
+		$student["Grade"] = json_decode($student["Grade"],true);
+	}
+
+	return $students;
+}
+
+function DownloadReport()
+{
+	$fileName = implode("-",explode(" ", $_SESSION["SubjectDetails"]["Name"])) . " - " .$_SESSION['Name'];
+	$myfile = fopen("../$fileName.csv", "w") or die("Unable to open file!");
+	
+	$data = explode("<br>",$_POST['data']);
+	
+	
+	fwrite($myfile, "'this is a test'");
+	
+	for($i = 0; $i < count($data); $i++)
+		fwrite($myfile, $data[$i]."\n\r");
+	
+	fclose($myfile);
+	
+	$data["link"] = "$fileName.csv";
+	
+	return $data;
+}
 
 /////Student Menu//////
 
@@ -93,7 +127,7 @@ function NewSubject()
 		$_POST["SubjectName"] = htmlspecialchars($_POST["SubjectName"]);
 		
 		
-		$defaultStructure = '{"Prelim":{"Percentage":30,"sub":{"Quiz":{"Percentage":20,"sub":{}},"Project":{"Percentage":20,"sub":{}},"MajorExam":{"Percentage":60,"sub":{}}}},"Midterm":{"Percentage":30,"sub":{"Quiz":{"Percentage":20,"sub":{}},"Project":{"Percentage":20,"sub":{}},"MajorExam":{"Percentage":60,"sub":{}}}},"Finals":{"Percentage":40,"sub":{"Quiz":{"Percentage":20,"sub":{}},"Project":{"Percentage":20,"sub":{}},"MajorExam":{"Percentage":60,"sub":{}}}}}';
+		$defaultStructure = '{"Prelim":{"Percentage":30,"sub":{"Quiz":{"Percentage":20,"sub":{"Quiz 1":{"Percentage":30,"max":20},"Quiz 2":{"Percentage":30,"max":20},"Quiz 3":{"Percentage":40,"max":30}}},"Project":{"Percentage":20,"max":40},"Major Exam":{"Percentage":60,"max":60}}},"Midterm":{"Percentage":30,"sub":{"Quiz":{"Percentage":20,"sub":{"Quiz 1":{"Percentage":30,"max":20},"Quiz 2":{"Percentage":30,"max":20},"Quiz 3":{"Percentage":40,"max":30}}},"Project":{"Percentage":20,"max":40},"Major Exam":{"Percentage":60,"max":60}}},"Finals":{"Percentage":40,"sub":{"Quiz":{"Percentage":20,"sub":{"Quiz 1":{"Percentage":30,"max":20},"Quiz 2":{"Percentage":30,"max":20},"Quiz 3":{"Percentage":40,"max":30}}},"Project":{"Percentage":20,"max":40},"Major Exam":{"Percentage":60,"max":60}}}}';
 		
     	$ret = ExecuteQuery("INSERT INTO Subject(`Name`,`Description`,`EmployeeNumber`, `Component`) VALUES('{$_POST['SubjectName']}','{$_POST['Description']}','{$_SESSION['EmployeeNumber']}', '$defaultStructure')");
         

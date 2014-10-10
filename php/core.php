@@ -67,6 +67,7 @@
 		$ret = ExecuteQuery("UPDATE Enrollment SET `Grade` = '{$_POST['Grade']}' WHERE StudentNumber = '{$_POST['StudentNumber']}'");
 	}
 	
+ini_set('auto_detect_line_endings', true);
 	
 
 ?>

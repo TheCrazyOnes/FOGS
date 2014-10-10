@@ -519,3 +519,75 @@ footer #copyright{
     display: inline-block;
     -webkit-user-select: none;
 }
+
+#reports table{
+	min-width: 100%;
+}
+
+#reports table td,#reports table th{
+	word-break: keep-all;
+	white-space: nowrap;
+}
+
+#reports table td:last-child,#reports table th:last-child{
+/*	opacity: 0;*/
+	outline: none;
+	border: none;
+	background-color: white;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
+}
+
+#reports table tr{
+	position: relative;
+}
+#reports table td:first-child, #reports table th:first-child{
+	position: fixed;
+	background-color: white;
+	left: 0px;
+	border-right: 1px solid #CCC;
+}
+
+#reports table th:first-child{
+	border-top: 1px solid #CCC;
+	margin-top: -1px;
+}
+
+#reports table td:nth-last-child(2), #reports table th:nth-last-child(2){
+	background-color: #333;
+	color: white;
+}
+
+#reports table tbody tr.fail td:nth-last-child(2){
+	color: red !important;
+}
+
+#reports table tbody tr.fail td:first-child{
+	color: red;
+}
+
+
+
+/*
+#reports table tbody tr .fail.level-0{
+	color: #FAA;
+}
+*/
+
+#reports table tbody tr td.fail{
+	color: red;
+}
+
+#reports table tbody tr{
+	background-color: #DDD;
+}
+
+#reports table tbody tr:hover{
+	background-color: #CCC;
+}
+
+#reports table td.level-0,#reports table th.level-0{background-color: rgba(0,0,0,0.7); color: white}
+#reports table td.level-1,#reports table th.level-1{background-color: rgba(0,0,0,0.3);}
+#reports table td.level-2,#reports table th.level-2{background-color: rgba(0,0,0,0.1);}
+#reports table td.level-3,#reports table th.level-3{background-color: rgba(0,0,0,0.0);}
+#reports table td.level-4,#reports table th.level-4{background-color: rgba(0,0,0,0.5);}

@@ -1,7 +1,7 @@
 $(document).ready(function(){
     
    Initialize();
-    
+   
 });
 
 function Initialize()
@@ -41,7 +41,6 @@ function Initialize()
 						ImplementSubject(data);
                     
 					ExitLoginForm(data);
-					
                 }
 
             },500);
