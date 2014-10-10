@@ -19,13 +19,15 @@ function DownloadReport()
 	$fileName = implode("-",explode(" ", $_SESSION["SubjectDetails"]["Name"])) . " - " .$_SESSION['Name'];
 	$myfile = fopen("../$fileName.csv", "w") or die("Unable to open file!");
 	
-	$data = explode("<br>",$_POST['data']);
+	$data = $_POST['data'];
 	
 	
-	fwrite($myfile, "'this is a test'");
+//	fwrite($myfile, $_POST['data']);
 	
 	for($i = 0; $i < count($data); $i++)
-		fwrite($myfile, $data[$i]."\n\r");
+	{	
+		fwrite($myfile, '"'. implode('","',$data[$i]) . '"' . PHP_EOL);
+	}
 	
 	fclose($myfile);
 	
@@ -53,6 +55,16 @@ function NewStudent()
 		$data["State"] = 'success';
 		return $data;
 	}
+	
+}
+
+function ViewEnrolledStudents()
+{
+	return SQLArrayToArray(ExecuteQuery("SELECT * FROM Student, Enrollment WHERE Student.StudentNumber = Enrollment.StudentNumber AND SubjectID = {$_SESSION['SubjectID']} ORDER BY Name"));
+}
+
+function RemoveStudentsFromSubject()
+{
 	
 }
 

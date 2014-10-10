@@ -25,12 +25,12 @@ function DownloadReport()
 {
 	$.post("php/frontend-com.php",{method:"ViewSubjectRecords"},function(data){
 
-
+		var lines = [];
 		data = JSON.parse(data);
 		
 		var head = [];
 		var tmpField = userInfo.SubjectDetails.Component;
-		head[head.length] = "<th>Name</th>";
+		head[head.length] = "<th class = 'testing'>Name</th>";
 		GetFields(tmpField, head, 0);
 		head[head.length] = "<th>Final Grade</th>";
 		$("#reports table thead tr").append(head.join("\n"));
@@ -38,10 +38,11 @@ function DownloadReport()
 		var strToSend = "";
 		
 		head = head.join("");
-
-		head = head.split(/<\/?th.{0,19}>/g).clean("");
 		
-		strToSend += head.join(",") + "<br>";
+		head = head.split(/<\/?th.{0,19}>/g).clean("");
+	
+		lines[lines.length] = head;
+//		strToSend += head.join(",") + "\n\r";
 		
 		for(var i =0; i < data.length; i++)
 		{
@@ -73,13 +74,15 @@ function DownloadReport()
 
 			str = str.join("").split(/<\/?td?r?[^>]*>/g).clean("");
 			
-			strToSend += "'"+str.join("','") + "'" + "<br>";
+			lines[lines.length] = str;
+			
+//			strToSend += "'"+str.join("','") + "'" + "\n\r";
 		}
 		
-//		alert(strToSend);
-		
-		$.post("php/frontend-com.php",{method: "DownloadReport", data: strToSend}, function(data){
+		$.post("php/frontend-com.php",{method: "DownloadReport", data: lines}, function(data){
+//			alert(data);
 			data = JSON.parse(data);
+			
 			PopupWindow.Show({ 
 				Content: windowContent.Simple, 
 				Title: "Download Report", 
@@ -289,6 +292,115 @@ function EditComponentRequest()
 /*========================*/
 /*======Student menu======*/
 /*========================*/
+
+function ManageStudent()
+{
+	PopupWindow.Show({ 
+		Content: windowContent.OpenMenu, 
+		Title: "Add Students", 
+		ActionButtons: '<a onclick = "RemoveStudentConfirmation();" class="btn red pull-right">Remove Selected</a> <a onclick = "PopupWindow.Close();" class="btn gray pull-right">Cancel</a>',
+		OnRender:function(){
+
+			$(".window .body ul").waitMe({
+				effect : 'stretch',
+				text : '',
+				bg : "transparent",
+				color : "#999",
+				sizeW : '',
+				sizeH : ''
+			});
+
+			$.post("php/frontend-com.php", {method:"ViewEnrolledStudents"}, function(data){
+
+				data = JSON.parse(data);
+
+				Iterate(function(i){
+					$(".window .body ul").append("<li data-student-number='"+data[i].StudentNumber+"' onclick='$(this).toggleClass(\"selected\");'>"+ data[i].Name + " <span class = 'bullet'> "+data[i].StudentNumber+"<span></li>");
+
+				}, data.length , 50);
+
+				$(".window .body #description").html("Showing " + data.length + " unenrolled student(s)");
+
+				$(".window .body ul").waitMe("hide");
+			});
+		}
+	});
+}
+
+function RemoveStudentConfirmation()
+{
+	PopupWindow.Show({ 
+		Content: windowContent.Simple, 
+		Title: "Remove selected students", 
+		ActionButtons: '<a tabindex=0 onclick = "RemoveSelectedStudentsRequest();" class="btn red pull-right">Delete</a> <a tabindex=0 onclick = "PopupWindow.Close();" class="btn gray pull-right">Cancel</a>',
+		Size: {Width: 250, Height: 175},
+		OnRender : function(){
+			$(".window .body .inner").html("Please confirm delete with your password <input type = 'password' placeholder='Password' style='display: block; width: 100%'>");
+		}
+	});
+}
+
+function test()
+{
+	var password = $(".window .inner input").val();
+
+	var vars = {method: "DeleteCurrentSubject"};
+	vars.Password = password;
+
+	$.post("php/frontend-com.php",vars,function(data){
+		data = JSON.parse(data);
+
+		if(data.State == "error")
+		{
+			PopupWindow.Show({ 
+				Content: windowContent.Simple, 
+				Title: "Wrong password", 
+				ActionButtons: '<a tabindex=0 onclick = "DeleteCurrentSubjectConfirm();" class="btn blue pull-right">Ok</a> <a tabindex=0 onclick = "PopupWindow.Close();" class="btn gray pull-right">Cancel</a>',
+				Size: {Width: 250, Height: 155},
+				OnRender:function(){
+					$(".window .body .inner").html("You've entered a wrong password, subject not deleted");
+				}
+			});
+		}
+		else
+		{
+			PopupWindow.Show({ 
+				Content: windowContent.Simple, 
+				Title: "Subject deleted", 
+				ActionButtons: '<a tabindex=0 onclick = "PopupWindow.Close();" class="btn blue pull-right">Ok</a>',
+				Size: {Width: 250, Height: 155},
+				OnRender:function(){
+					$(".window .body .inner").html("Subject deleted successfuly");
+				}
+			});
+
+			ResetSubject();
+		}
+	});
+
+}
+
+function RemoveStudentRequest()
+{
+	var ids = [];
+	var vars = {};
+
+	vars.method = "RemoveStudentsFromSubject";
+
+	$(".window .body ul li.selected").each(function(i,e){
+		ids[ids.length] = $(e).attr("data-student-number");
+	});
+
+	vars.Students = ids;
+
+	$.post("php/frontend-com.php", vars, function(data){
+		data = JSON.parse(data);
+		ImplementStudentList({Students: data});
+	});
+
+	//	alert("Add student Request with ids: " + JSON.stringify(ids));
+	PopupWindow.Close();
+}
 
 function AddStudent()
 {
