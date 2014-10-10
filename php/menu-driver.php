@@ -48,15 +48,14 @@ function ViewStudents()
 function AddStudentsToSubject()
 {
 
+	$structure;
+	GenerateGradeFromComponent($_SESSION["SubjectDetails"]["Component"], $structure);
+	$structure = json_encode($structure);
+	
 	$students = $_POST['Students'];
 	for($i = 0; $i < count($students); $i++)
 	{
-		$component = $_SESSION["SubjectDetails"]["Component"];
-		
-		$structure;
-		GenerateGradeFromComponent($_SESSION["SubjectDetails"]["Component"], $structure);
-		
-		$structure = json_encode($structure);
+		$component = $_SESSION["SubjectDetails"]["Component"];	
 		
 		ExecuteQuery("INSERT INTO Enrollment(`StudentNumber`,`SubjectID`,`Grade`) VALUES('{$students[$i]}', {$_SESSION['SubjectID']}, '$structure')");
 	}

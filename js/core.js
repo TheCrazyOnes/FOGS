@@ -19,6 +19,7 @@ function LoadSubject(SubjectID)
 
 function ImplementSubject(data)
 {
+	userInfo.SubjectDetails = data.SubjectDetails;
 	$("#subject-name>span:first-child").html(data.SubjectDetails.Name);
 	
 	
@@ -62,12 +63,14 @@ function BuildComponentLevel(component, parent)
 			field = '<input type= "text"><span class="holder" data-max = "'+component[key].max+'">&frasl; </span>';
 		}
 		
+		var name = key.split(" ").join("-");
+		
 		var str = '\
-	<div data-name = '+key+' class="panel panel-default">\
+	<div data-name = '+name+' class="panel panel-default">\
 		<div class="panel-heading">\
 			<h4 class="panel-title">\
-				<a class = "'+subClass+'" data-toggle="collapse" >\
-					'+key+ field +'\
+				<a class = "'+subClass+'" data-toggle="collapse" > \
+'+key+ field +'<span class = "percentage">'+component[key].Percentage+'&#37;<span>\
 				</a>\
 			</h4>\
 		</div>\
@@ -110,10 +113,108 @@ function SelectStudent(selected)
 	$(selected).siblings().removeClass("selected");
 	$(selected).addClass("selected");
 	userInfo.SelectedStudent = $(selected).attr("data-student-number");
-	LoadStudentRecord(userInfo.SelectedStudent);
+//	LoadStudentRecord(userInfo.SelectedStudent);
+
+	var vars = {method: "LoadStudent"};
+	vars.StudentNumber = userInfo.SelectedStudent;
+	
+	$(".main").waitMe({
+		effect : 'stretch',
+		text : 'Loading student...',
+		bg : "rgba(255,255,255,0.7)",
+		color : "#333"
+	});
+	
+	$.post("php/frontend-com.php",vars,function(data){
+		data = JSON.parse(data);
+		ImplementStudentRecord(data);
+		$(".main").StopLoading();
+	});
+	
+//	alert(JSON.stringify(userInfo.StudentDetails.Grade));
+	MergeComponent(userInfo.SubjectDetails.Component, userInfo.StudentDetails.Grade);
+	alert(JSON.stringify(userInfo.SubjectDetails.Component));
 }
 
-function LoadStudentRecord(data)
+function ImplementStudentRecord(data)
+{
+	userInfo.StudentDetails = data;
+	$(".main #student-name").html(data.Name);
+	
+	FillFields(data.Grade, ".main #components");
+}
+
+function FillFields(node, parent)
+{
+	for (var key in node) {
+	
+		if((typeof node[key]) != "string")
+			FillFields(node[key], parent + " [data-name='"+key.split(" ").join("-")+"']");
+		else
+			$(parent + " [data-name='"+key.split(" ").join("-")+"'] input").val(node[key]);	
+	}	
+}
+
+function SaveGrade()
+{
+	HarvestFields(userInfo.StudentDetails.Grade, ".main #components");
+	
+	
+	var vars = {method: "SaveGrade"};
+	vars.StudentNumber = userInfo.StudentDetails.StudentNumber;
+	vars.Grade = userInfo.StudentDetails.Grade;
+	
+	$(".main").waitMe({
+		effect : 'stretch',
+		text : 'Saving Grade...',
+		bg : "rgba(255,255,255,0.7)",
+		color : "#333"
+	});
+	
+	$.post("php/frontend-com.php",vars,function(data){
+		AlertOnError(data);
+		$(".main").StopLoading();
+	});
+	
+	
+}
+
+function HarvestFields(node, parent)
+{
+	for (var key in node) {
+
+		if((typeof node[key])!= "string")
+			HarvestFields(node[key], parent + " [data-name='"+key.split(" ").join("-")+"']");
+		else
+			node[key] = $(parent + " [data-name='"+key.split(" ").join("-")+"'] input").val();	
+	}	
+}
+
+var log = "";
+
+function MergeComponent(node, value)
+{
+	var grade = 0;
+	for(var key in node)
+	{	
+		if( node[key].sub != null )
+		{
+//			alert(key + " " + JSON.stringify(value[key]));	
+			MergeComponent(node[key].sub, value[key]);
+		}
+		else
+		{
+//			alert(node[key].Percentage +"-" +value[key]);
+			node[key].raw = value[key];
+			node[key].value = (value[key] / node[key].max) * (node[key].Percentage/100) ;	
+			grade += node[key].value;
+		}
+	}
+
+	node.value = grade;
+}
+
+function ComputeGrade()
 {
 	
 }

@@ -116,12 +116,15 @@ function ShowErrorMessage(title, msg, callback, width, height)
 }
 
 jQuery.fn.extend({
-    StartLoading: function() {
+    StartLoading: function(bg) {
         return this.each(function() {
-            $(this).waitMe({
+            
+			bg = bg || "transparent";
+			
+			$(this).waitMe({
                 effect : 'stretch',
                 text : '',
-                bg : "transparent",
+                bg : bg,
                 color : "#999",
                 sizeW : '',
                 sizeH : ''

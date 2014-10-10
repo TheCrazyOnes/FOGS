@@ -43,6 +43,29 @@
         
     }
 
+	function LoadStudent()
+	{
+		$student = QuerySingleRow("SELECT * FROM Student, Enrollment WHERE Student.StudentNumber = Enrollment.StudentNumber AND Enrollment.StudentNumber = '{$_POST['StudentNumber']}' AND SubjectID = {$_SESSION['SubjectID']}");
+		
+		
+		if($student["ProfessorEmployeeNumber"] != $_SESSION['EmployeeNumber'] || $student == null)
+		{
+			$data["State"] = "error";
+			$data["Reason"] = "You do not own the student";
+			return $data;
+		}
+		
+		$student["Grade"] = json_decode($student["Grade"],true);
+		
+		return $student;
+		
+	}
+
+	function SaveGrade()
+	{
+		$_POST['Grade'] = json_encode($_POST['Grade']);
+		$ret = ExecuteQuery("UPDATE Enrollment SET `Grade` = '{$_POST['Grade']}' WHERE StudentNumber = '{$_POST['StudentNumber']}'");
+	}
 	
 	
 

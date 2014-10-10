@@ -3,7 +3,7 @@
  * https://github.com/equiet/recognizer
  */
 
-var __recognizer304854045 = (function () {
+var __recognizer219673032 = (function () {
     'use strict';
 
     var global = this;
@@ -162,22 +162,22 @@ var windowContent = {
         Simple: '<div class="inner"></div>'
     };
 (function () {
-    var obj = __recognizer304854045.logProbe([
+    var obj = __recognizer219673032.logProbe([
             13,
             0,
             13,
             11
-        ], __recognizer304854045.logProbe([
+        ], __recognizer219673032.logProbe([
             13,
             0,
             13,
             1
-        ], $)(__recognizer304854045.logProbe([
+        ], $)(__recognizer219673032.logProbe([
             13,
             2,
             13,
             10
-        ], document))), fn = __recognizer304854045.logProbe([
+        ], document))), fn = __recognizer219673032.logProbe([
             13,
             12,
             13,
@@ -185,7 +185,7 @@ var windowContent = {
         ], obj.ready);
     return fn.apply(obj, arguments);
 }.bind(this)(function () {
-    __recognizer304854045.logEntry([
+    __recognizer219673032.logEntry([
         13,
         18,
         13,
@@ -193,72 +193,74 @@ var windowContent = {
     ], arguments);
 }));
 var PopupWindow = {
-        Html: '<div class = "notification-fader animated fadeIn" onclick = "PopupWindow.Close();"></div><div class="window layer-4 animated fadeInDown">    <div class="title"><span id = "text"></span><span onclick="PopupWindow.Close();" id = "close" class="pull-right glyphicon glyphicon-remove"></span>    </div>    <div class="body">    </div>    <div class="action-menu">    </div></div>    ',
+        Html: '<div class = "notification-fader animated fadeIn" onclick = "PopupWindow.Close();"></div><div class="window layer-4 animated fadeInDown">    <div class="title"><span id = "text"></span><span onclick="PopupWindow.Close();" id = "close" class="pull-right glyphicon glyphicon-remove"></span>    </div>    <div class="body">    </div>    <div class="action-menu"><span class="status"></span>    </div></div>    ',
+        Object: null,
         Show: function (options) {
-            __recognizer304854045.logEntry([
-                34,
+            __recognizer219673032.logEntry([
+                33,
                 11,
-                34,
+                33,
                 19
             ], arguments);
             var delay = 0;
-            if (__recognizer304854045.logProbe([
-                    39,
+            if (__recognizer219673032.logProbe([
+                    38,
                     23,
-                    39,
+                    38,
                     29
-                ], __recognizer304854045.logProbe([
-                    39,
+                ], __recognizer219673032.logProbe([
+                    38,
                     11,
-                    39,
+                    38,
                     22
                 ], PopupWindow).IsOpen)) {
                 delay = 500;
                 (function () {
-                    var obj = __recognizer304854045.logProbe([
-                            42,
+                    var obj = __recognizer219673032.logProbe([
+                            41,
                             12,
-                            42,
+                            41,
                             23
-                        ], PopupWindow), fn = __recognizer304854045.logProbe([
-                            42,
+                        ], PopupWindow), fn = __recognizer219673032.logProbe([
+                            41,
                             24,
-                            42,
+                            41,
                             29
                         ], obj.Close);
                     return fn.apply(obj, arguments);
                 }.bind(this)());
             }
-            __recognizer304854045.logProbe([
-                45,
+            __recognizer219673032.logProbe([
+                44,
                 8,
-                75,
+                78,
                 16
-            ], __recognizer304854045.logProbe([
-                45,
+            ], __recognizer219673032.logProbe([
+                44,
                 8,
-                45,
+                44,
                 18
             ], setTimeout)(function () {
-                __recognizer304854045.logEntry([
-                    45,
+                __recognizer219673032.logEntry([
+                    44,
                     19,
-                    45,
+                    44,
                     27
                 ], arguments);
-                options = __recognizer304854045.logProbe([
-                    47,
+                options = __recognizer219673032.logProbe([
+                    46,
                     22,
-                    47,
+                    46,
                     29
                 ], options) || {};
                 var defaultOptions = {
-                        Content: __recognizer304854045.logProbe([
+                        Type: '',
+                        Content: __recognizer219673032.logProbe([
                             50,
                             39,
                             50,
                             45
-                        ], __recognizer304854045.logProbe([
+                        ], __recognizer219673032.logProbe([
                             50,
                             25,
                             50,
@@ -271,7 +273,7 @@ var PopupWindow = {
                             Height: 300
                         },
                         OnRender: function () {
-                            __recognizer304854045.logEntry([
+                            __recognizer219673032.logEntry([
                                 54,
                                 26,
                                 54,
@@ -279,97 +281,97 @@ var PopupWindow = {
                             ], arguments);
                         }
                     };
-                defaultOptions = __recognizer304854045.logProbe([
+                defaultOptions = __recognizer219673032.logProbe([
                     58,
                     29,
                     58,
                     64
-                ], __recognizer304854045.logProbe([
+                ], __recognizer219673032.logProbe([
                     58,
                     29,
                     58,
                     39
-                ], MergeArray)(__recognizer304854045.logProbe([
+                ], MergeArray)(__recognizer219673032.logProbe([
                     58,
                     40,
                     58,
                     54
-                ], defaultOptions), __recognizer304854045.logProbe([
+                ], defaultOptions), __recognizer219673032.logProbe([
                     58,
                     56,
                     58,
                     63
                 ], options)));
                 (function () {
-                    var obj = __recognizer304854045.logProbe([
+                    var obj = __recognizer219673032.logProbe([
                             61,
                             12,
                             61,
                             28
-                        ], __recognizer304854045.logProbe([
+                        ], __recognizer219673032.logProbe([
                             61,
                             12,
                             61,
                             13
-                        ], $)('body>.inner')), fn = __recognizer304854045.logProbe([
+                        ], $)('body>.inner')), fn = __recognizer219673032.logProbe([
                             61,
                             29,
                             61,
                             35
                         ], obj.append);
                     return fn.apply(obj, arguments);
-                }.bind(this)(__recognizer304854045.logProbe([
+                }.bind(this)(__recognizer219673032.logProbe([
                     61,
                     48,
                     61,
                     52
-                ], __recognizer304854045.logProbe([
+                ], __recognizer219673032.logProbe([
                     61,
                     36,
                     61,
                     47
                 ], PopupWindow).Html)));
                 (function () {
-                    var obj = __recognizer304854045.logProbe([
+                    var obj = __recognizer219673032.logProbe([
                             62,
                             12,
                             62,
                             30
-                        ], __recognizer304854045.logProbe([
+                        ], __recognizer219673032.logProbe([
                             62,
                             12,
                             62,
                             13
-                        ], $)('.window .body')), fn = __recognizer304854045.logProbe([
+                        ], $)('.window .body')), fn = __recognizer219673032.logProbe([
                             62,
                             31,
                             62,
                             35
                         ], obj.html);
                     return fn.apply(obj, arguments);
-                }.bind(this)(__recognizer304854045.logProbe([
+                }.bind(this)(__recognizer219673032.logProbe([
                     62,
                     51,
                     62,
                     58
-                ], __recognizer304854045.logProbe([
+                ], __recognizer219673032.logProbe([
                     62,
                     36,
                     62,
                     50
                 ], defaultOptions).Content)));
                 (function () {
-                    var obj = __recognizer304854045.logProbe([
+                    var obj = __recognizer219673032.logProbe([
                             63,
                             12,
                             63,
                             24
-                        ], __recognizer304854045.logProbe([
+                        ], __recognizer219673032.logProbe([
                             63,
                             12,
                             63,
                             13
-                        ], $)('.window')), fn = __recognizer304854045.logProbe([
+                        ], $)('.window')), fn = __recognizer219673032.logProbe([
                             63,
                             25,
                             63,
@@ -377,33 +379,33 @@ var PopupWindow = {
                         ], obj.css);
                     return fn.apply(obj, arguments);
                 }.bind(this)({
-                    width: __recognizer304854045.logProbe([
+                    width: __recognizer219673032.logProbe([
                         63,
                         57,
                         63,
                         62
-                    ], __recognizer304854045.logProbe([
+                    ], __recognizer219673032.logProbe([
                         63,
                         52,
                         63,
                         56
-                    ], __recognizer304854045.logProbe([
+                    ], __recognizer219673032.logProbe([
                         63,
                         37,
                         63,
                         51
                     ], defaultOptions).Size).Width) + 'px',
-                    height: __recognizer304854045.logProbe([
+                    height: __recognizer219673032.logProbe([
                         63,
                         99,
                         63,
                         105
-                    ], __recognizer304854045.logProbe([
+                    ], __recognizer219673032.logProbe([
                         63,
                         94,
                         63,
                         98
-                    ], __recognizer304854045.logProbe([
+                    ], __recognizer219673032.logProbe([
                         63,
                         79,
                         63,
@@ -411,237 +413,291 @@ var PopupWindow = {
                     ], defaultOptions).Size).Height) + 'px'
                 }));
                 (function () {
-                    var obj = __recognizer304854045.logProbe([
+                    var obj = __recognizer219673032.logProbe([
                             64,
                             12,
                             64,
-                            37
-                        ], __recognizer304854045.logProbe([
+                            31
+                        ], __recognizer219673032.logProbe([
                             64,
                             12,
                             64,
                             13
-                        ], $)('.window .title #text')), fn = __recognizer304854045.logProbe([
+                        ], $)('.window .title')), fn = __recognizer219673032.logProbe([
                             64,
+                            32,
+                            64,
+                            40
+                        ], obj.addClass);
+                    return fn.apply(obj, arguments);
+                }.bind(this)(__recognizer219673032.logProbe([
+                    64,
+                    56,
+                    64,
+                    60
+                ], __recognizer219673032.logProbe([
+                    64,
+                    41,
+                    64,
+                    55
+                ], defaultOptions).Type)));
+                (function () {
+                    var obj = __recognizer219673032.logProbe([
+                            65,
+                            12,
+                            65,
+                            37
+                        ], __recognizer219673032.logProbe([
+                            65,
+                            12,
+                            65,
+                            13
+                        ], $)('.window .title #text')), fn = __recognizer219673032.logProbe([
+                            65,
                             38,
-                            64,
+                            65,
                             42
                         ], obj.html);
                     return fn.apply(obj, arguments);
-                }.bind(this)(__recognizer304854045.logProbe([
-                    64,
+                }.bind(this)(__recognizer219673032.logProbe([
+                    65,
                     58,
-                    64,
+                    65,
                     63
-                ], __recognizer304854045.logProbe([
-                    64,
+                ], __recognizer219673032.logProbe([
+                    65,
                     43,
-                    64,
+                    65,
                     57
                 ], defaultOptions).Title)));
                 (function () {
-                    var obj = __recognizer304854045.logProbe([
-                            65,
+                    var obj = __recognizer219673032.logProbe([
+                            66,
                             12,
-                            65,
+                            66,
                             37
-                        ], __recognizer304854045.logProbe([
-                            65,
+                        ], __recognizer219673032.logProbe([
+                            66,
                             12,
-                            65,
+                            66,
                             13
-                        ], $)('.window .action-menu')), fn = __recognizer304854045.logProbe([
-                            65,
+                        ], $)('.window .action-menu')), fn = __recognizer219673032.logProbe([
+                            66,
                             38,
-                            65,
-                            42
-                        ], obj.html);
+                            66,
+                            44
+                        ], obj.append);
                     return fn.apply(obj, arguments);
-                }.bind(this)(__recognizer304854045.logProbe([
-                    65,
-                    58,
-                    65,
-                    71
-                ], __recognizer304854045.logProbe([
-                    65,
-                    43,
-                    65,
-                    57
+                }.bind(this)(__recognizer219673032.logProbe([
+                    66,
+                    60,
+                    66,
+                    73
+                ], __recognizer219673032.logProbe([
+                    66,
+                    45,
+                    66,
+                    59
                 ], defaultOptions).ActionButtons)));
+                PopupWindow.Object = __recognizer219673032.logProbe([
+                    68,
+                    33,
+                    68,
+                    45
+                ], __recognizer219673032.logProbe([
+                    68,
+                    33,
+                    68,
+                    34
+                ], $)('.window'));
                 (function () {
-                    var obj = __recognizer304854045.logProbe([
-                            67,
+                    var obj = __recognizer219673032.logProbe([
+                            70,
                             12,
-                            67,
+                            70,
                             26
-                        ], defaultOptions), fn = __recognizer304854045.logProbe([
-                            67,
+                        ], defaultOptions), fn = __recognizer219673032.logProbe([
+                            70,
                             27,
-                            67,
+                            70,
                             35
                         ], obj.OnRender);
                     return fn.apply(obj, arguments);
                 }.bind(this)());
-                __recognizer304854045.logProbe([
-                    69,
+                __recognizer219673032.logProbe([
+                    72,
+                    12,
+                    75,
+                    19
+                ], __recognizer219673032.logProbe([
+                    72,
                     12,
                     72,
-                    19
-                ], __recognizer304854045.logProbe([
-                    69,
-                    12,
-                    69,
                     22
                 ], setTimeout)(function () {
-                    __recognizer304854045.logEntry([
-                        69,
+                    __recognizer219673032.logEntry([
+                        72,
                         23,
-                        69,
+                        72,
                         31
                     ], arguments);
                     (function () {
-                        var obj = __recognizer304854045.logProbe([
-                                70,
+                        var obj = __recognizer219673032.logProbe([
+                                73,
                                 16,
-                                70,
+                                73,
                                 28
-                            ], __recognizer304854045.logProbe([
-                                70,
+                            ], __recognizer219673032.logProbe([
+                                73,
                                 16,
-                                70,
+                                73,
                                 17
-                            ], $)('.window')), fn = __recognizer304854045.logProbe([
-                                70,
+                            ], $)('.window')), fn = __recognizer219673032.logProbe([
+                                73,
                                 29,
-                                70,
+                                73,
                                 40
                             ], obj.removeClass);
                         return fn.apply(obj, arguments);
                     }.bind(this)('fadeInDown'));
                     (function () {
-                        var obj = __recognizer304854045.logProbe([
-                                71,
+                        var obj = __recognizer219673032.logProbe([
+                                74,
                                 16,
-                                71,
+                                74,
                                 40
-                            ], __recognizer304854045.logProbe([
-                                71,
+                            ], __recognizer219673032.logProbe([
+                                74,
                                 16,
-                                71,
+                                74,
                                 17
-                            ], $)('.notification-fader')), fn = __recognizer304854045.logProbe([
-                                71,
+                            ], $)('.notification-fader')), fn = __recognizer219673032.logProbe([
+                                74,
                                 41,
-                                71,
+                                74,
                                 52
                             ], obj.removeClass);
                         return fn.apply(obj, arguments);
                     }.bind(this)('fadeIn'));
                 }, 500));
                 PopupWindow.IsOpen = true;
-            }, __recognizer304854045.logProbe([
-                75,
+            }, __recognizer219673032.logProbe([
+                78,
                 10,
-                75,
+                78,
                 15
             ], delay)));
         },
         Close: function () {
-            __recognizer304854045.logEntry([
-                78,
+            __recognizer219673032.logEntry([
+                81,
                 12,
-                78,
+                81,
                 20
             ], arguments);
             (function () {
-                var obj = __recognizer304854045.logProbe([
-                        79,
+                var obj = __recognizer219673032.logProbe([
+                        83,
                         8,
-                        79,
+                        83,
+                        19
+                    ], PopupWindow), fn = __recognizer219673032.logProbe([
+                        83,
+                        20,
+                        83,
+                        27
+                    ], obj.OnClose);
+                return fn.apply(obj, arguments);
+            }.bind(this)());
+            (function () {
+                var obj = __recognizer219673032.logProbe([
+                        85,
+                        8,
+                        85,
                         20
-                    ], __recognizer304854045.logProbe([
-                        79,
+                    ], __recognizer219673032.logProbe([
+                        85,
                         8,
-                        79,
+                        85,
                         9
-                    ], $)('.window')), fn = __recognizer304854045.logProbe([
-                        79,
+                    ], $)('.window')), fn = __recognizer219673032.logProbe([
+                        85,
                         21,
-                        79,
+                        85,
                         29
                     ], obj.addClass);
                 return fn.apply(obj, arguments);
             }.bind(this)('fadeOutDown'));
             (function () {
-                var obj = __recognizer304854045.logProbe([
-                        80,
+                var obj = __recognizer219673032.logProbe([
+                        86,
                         8,
-                        80,
+                        86,
                         32
-                    ], __recognizer304854045.logProbe([
-                        80,
+                    ], __recognizer219673032.logProbe([
+                        86,
                         8,
-                        80,
+                        86,
                         9
-                    ], $)('.notification-fader')), fn = __recognizer304854045.logProbe([
-                        80,
+                    ], $)('.notification-fader')), fn = __recognizer219673032.logProbe([
+                        86,
                         33,
-                        80,
+                        86,
                         41
                     ], obj.addClass);
                 return fn.apply(obj, arguments);
             }.bind(this)('fadeOut'));
-            __recognizer304854045.logProbe([
-                82,
+            __recognizer219673032.logProbe([
+                88,
                 8,
-                85,
+                91,
                 15
-            ], __recognizer304854045.logProbe([
-                82,
+            ], __recognizer219673032.logProbe([
+                88,
                 8,
-                82,
+                88,
                 18
             ], setTimeout)(function () {
-                __recognizer304854045.logEntry([
-                    82,
+                __recognizer219673032.logEntry([
+                    88,
                     19,
-                    82,
+                    88,
                     27
                 ], arguments);
                 (function () {
-                    var obj = __recognizer304854045.logProbe([
-                            83,
+                    var obj = __recognizer219673032.logProbe([
+                            89,
                             12,
-                            83,
+                            89,
                             36
-                        ], __recognizer304854045.logProbe([
-                            83,
+                        ], __recognizer219673032.logProbe([
+                            89,
                             12,
-                            83,
+                            89,
                             13
-                        ], $)('.notification-fader')), fn = __recognizer304854045.logProbe([
-                            83,
+                        ], $)('.notification-fader')), fn = __recognizer219673032.logProbe([
+                            89,
                             37,
-                            83,
+                            89,
                             43
                         ], obj.remove);
                     return fn.apply(obj, arguments);
                 }.bind(this)());
                 (function () {
-                    var obj = __recognizer304854045.logProbe([
-                            84,
+                    var obj = __recognizer219673032.logProbe([
+                            90,
                             12,
-                            84,
+                            90,
                             24
-                        ], __recognizer304854045.logProbe([
-                            84,
+                        ], __recognizer219673032.logProbe([
+                            90,
                             12,
-                            84,
+                            90,
                             13
-                        ], $)('.window')), fn = __recognizer304854045.logProbe([
-                            84,
+                        ], $)('.window')), fn = __recognizer219673032.logProbe([
+                            90,
                             25,
-                            84,
+                            90,
                             31
                         ], obj.remove);
                     return fn.apply(obj, arguments);
@@ -649,51 +705,759 @@ var PopupWindow = {
             }, 500));
             PopupWindow.IsOpen = false;
         },
+        OnClose: function () {
+            __recognizer219673032.logEntry([
+                95,
+                14,
+                95,
+                22
+            ], arguments);
+        },
         IsOpen: false
     };
-function MergeArray(a1, a2) {
-    __recognizer304854045.logEntry([
-        93,
+function ShowErrorMessage(title, msg, callback, width, height) {
+    __recognizer219673032.logEntry([
+        102,
         9,
-        93,
+        102,
+        25
+    ], arguments);
+    width = __recognizer219673032.logProbe([
+        104,
+        12,
+        104,
+        17
+    ], width) || 250;
+    height = __recognizer219673032.logProbe([
+        105,
+        13,
+        105,
+        19
+    ], height) || 155;
+    (function () {
+        var obj = __recognizer219673032.logProbe([
+                106,
+                4,
+                106,
+                15
+            ], PopupWindow), fn = __recognizer219673032.logProbe([
+                106,
+                16,
+                106,
+                20
+            ], obj.Show);
+        return fn.apply(obj, arguments);
+    }.bind(this)({
+        Type: 'error',
+        Content: __recognizer219673032.logProbe([
+            108,
+            31,
+            108,
+            37
+        ], __recognizer219673032.logProbe([
+            108,
+            17,
+            108,
+            30
+        ], windowContent).Simple),
+        Title: title,
+        ActionButtons: '<a tabindex=0 onclick = "' + __recognizer219673032.logProbe([
+            110,
+            51,
+            110,
+            59
+        ], callback) + '();" class="btn gray pull-right">OK</a>',
+        Size: {
+            Width: width,
+            Height: height
+        },
+        OnRender: function () {
+            __recognizer219673032.logEntry([
+                112,
+                17,
+                112,
+                25
+            ], arguments);
+            (function () {
+                var obj = __recognizer219673032.logProbe([
+                        113,
+                        12,
+                        113,
+                        37
+                    ], __recognizer219673032.logProbe([
+                        113,
+                        12,
+                        113,
+                        13
+                    ], $)('.window .body .inner')), fn = __recognizer219673032.logProbe([
+                        113,
+                        38,
+                        113,
+                        42
+                    ], obj.html);
+                return fn.apply(obj, arguments);
+            }.bind(this)(__recognizer219673032.logProbe([
+                113,
+                43,
+                113,
+                46
+            ], msg)));
+        }
+    }));
+}
+(function () {
+    var obj = __recognizer219673032.logProbe([
+            118,
+            7,
+            118,
+            9
+        ], __recognizer219673032.logProbe([
+            118,
+            0,
+            118,
+            6
+        ], jQuery).fn), fn = __recognizer219673032.logProbe([
+            118,
+            10,
+            118,
+            16
+        ], obj.extend);
+    return fn.apply(obj, arguments);
+}.bind(this)({
+    StartLoading: function (bg) {
+        __recognizer219673032.logEntry([
+            119,
+            18,
+            119,
+            26
+        ], arguments);
+        return function () {
+            var obj = __recognizer219673032.logProbe([
+                    120,
+                    15,
+                    120,
+                    19
+                ], this), fn = __recognizer219673032.logProbe([
+                    120,
+                    20,
+                    120,
+                    24
+                ], obj.each);
+            return fn.apply(obj, arguments);
+        }.bind(this)(function () {
+            __recognizer219673032.logEntry([
+                120,
+                25,
+                120,
+                33
+            ], arguments);
+            bg = __recognizer219673032.logProbe([
+                122,
+                8,
+                122,
+                10
+            ], bg) || 'transparent';
+            (function () {
+                var obj = __recognizer219673032.logProbe([
+                        124,
+                        3,
+                        124,
+                        10
+                    ], __recognizer219673032.logProbe([
+                        124,
+                        3,
+                        124,
+                        4
+                    ], $)(__recognizer219673032.logProbe([
+                        124,
+                        5,
+                        124,
+                        9
+                    ], this))), fn = __recognizer219673032.logProbe([
+                        124,
+                        11,
+                        124,
+                        17
+                    ], obj.waitMe);
+                return fn.apply(obj, arguments);
+            }.bind(this)({
+                effect: 'stretch',
+                text: '',
+                bg: bg,
+                color: '#999',
+                sizeW: '',
+                sizeH: ''
+            }));
+        });
+    },
+    StopLoading: function () {
+        __recognizer219673032.logEntry([
+            135,
+            17,
+            135,
+            25
+        ], arguments);
+        return function () {
+            var obj = __recognizer219673032.logProbe([
+                    136,
+                    15,
+                    136,
+                    19
+                ], this), fn = __recognizer219673032.logProbe([
+                    136,
+                    20,
+                    136,
+                    24
+                ], obj.each);
+            return fn.apply(obj, arguments);
+        }.bind(this)(function () {
+            __recognizer219673032.logEntry([
+                136,
+                25,
+                136,
+                33
+            ], arguments);
+            (function () {
+                var obj = __recognizer219673032.logProbe([
+                        137,
+                        12,
+                        137,
+                        19
+                    ], __recognizer219673032.logProbe([
+                        137,
+                        12,
+                        137,
+                        13
+                    ], $)(__recognizer219673032.logProbe([
+                        137,
+                        14,
+                        137,
+                        18
+                    ], this))), fn = __recognizer219673032.logProbe([
+                        137,
+                        20,
+                        137,
+                        26
+                    ], obj.waitMe);
+                return fn.apply(obj, arguments);
+            }.bind(this)('hide'));
+        });
+    }
+}));
+function AlertOnError(data) {
+    __recognizer219673032.logEntry([
+        142,
+        9,
+        142,
+        21
+    ], arguments);
+    if (function () {
+            var obj = __recognizer219673032.logProbe([
+                    144,
+                    7,
+                    144,
+                    11
+                ], data), fn = __recognizer219673032.logProbe([
+                    144,
+                    12,
+                    144,
+                    19
+                ], obj.indexOf);
+            return fn.apply(obj, arguments);
+        }.bind(this)('You have') != -1)
+        __recognizer219673032.logProbe([
+            145,
+            8,
+            145,
+            19
+        ], __recognizer219673032.logProbe([
+            145,
+            8,
+            145,
+            13
+        ], alert)(__recognizer219673032.logProbe([
+            145,
+            14,
+            145,
+            18
+        ], data)));
+}
+function MergeArray(a1, a2) {
+    __recognizer219673032.logEntry([
+        149,
+        9,
+        149,
         19
     ], arguments);
     (function () {
-        var obj = __recognizer304854045.logProbe([
-                95,
+        var obj = __recognizer219673032.logProbe([
+                151,
                 4,
-                95,
+                151,
                 5
-            ], $), fn = __recognizer304854045.logProbe([
-                95,
+            ], $), fn = __recognizer219673032.logProbe([
+                151,
                 6,
-                95,
+                151,
                 10
             ], obj.each);
         return fn.apply(obj, arguments);
-    }.bind(this)(__recognizer304854045.logProbe([
-        95,
+    }.bind(this)(__recognizer219673032.logProbe([
+        151,
         11,
-        95,
+        151,
         13
     ], a2), function (key, value) {
-        __recognizer304854045.logEntry([
-            95,
+        __recognizer219673032.logEntry([
+            151,
             14,
-            95,
+            151,
             22
         ], arguments);
-        a1[key] = __recognizer304854045.logProbe([
-            96,
+        a1[key] = __recognizer219673032.logProbe([
+            152,
             18,
-            96,
+            152,
             23
         ], value);
     }));
-    return __recognizer304854045.logProbe([
-        99,
+    return __recognizer219673032.logProbe([
+        155,
         11,
-        99,
+        155,
         13
     ], a1);
+}
+function Animate(selector, animation, callback, delay, remove) {
+    __recognizer219673032.logEntry([
+        158,
+        9,
+        158,
+        16
+    ], arguments);
+    delay = __recognizer219673032.logProbe([
+        161,
+        12,
+        161,
+        17
+    ], delay) || 500;
+    remove = __recognizer219673032.logProbe([
+        162,
+        13,
+        162,
+        19
+    ], remove) || false;
+    var animations = [
+            'animated',
+            'slideInDown',
+            'slideInLeft',
+            'slideInRight',
+            'slideInUp',
+            'slideOutDown',
+            'slideOutUp',
+            'slideOutLeft',
+            'slideOutRight',
+            'bounce',
+            'flash',
+            'pulse',
+            'rubberBand',
+            'shake',
+            'swing',
+            'tada',
+            'wobble',
+            'bounceIn',
+            'bounceInDown',
+            'bounceInLeft',
+            'bounceInRight',
+            'bounceInUp',
+            'Bouncing Exits',
+            'bounceOut',
+            'bounceOutDown',
+            'bounceOutLeft',
+            'bounceOutRight',
+            'bounceOutUp',
+            'fadeIn',
+            'fadeInDown',
+            'fadeInDownBig',
+            'fadeInLeft',
+            'fadeInLeftBig',
+            'fadeInRight',
+            'fadeInRightBig',
+            'fadeInUp',
+            'fadeInUpBig',
+            'fadeOut',
+            'fadeOutDown',
+            'fadeOutDownBig',
+            'fadeOutLeft',
+            'fadeOutLeftBig',
+            'fadeOutRight',
+            'fadeOutRightBig',
+            'fadeOutUp',
+            'fadeOutUpBig',
+            'flip',
+            'flipInX',
+            'flipInY',
+            'flipOutX',
+            'flipOutY',
+            'Lightspeed',
+            'lightSpeedIn',
+            'lightSpeedOut',
+            'rotateIn',
+            'rotateInDownLeft',
+            'rotateInDownRight',
+            'rotateInUpLeft',
+            'rotateInUpRight',
+            'rotateOut',
+            'rotateOutDownLeft',
+            'rotateOutDownRight',
+            'rotateOutUpLeft',
+            'rotateOutUpRight',
+            'hinge',
+            'rollIn',
+            'rollOut',
+            'zoomIn',
+            'zoomInDown',
+            'zoomInLeft',
+            'zoomInRight',
+            'zoomInUp',
+            'zoomOut',
+            'zoomOutDown',
+            'zoomOutLeft',
+            'zoomOutRight',
+            'zoomOutUp'
+        ];
+    (function () {
+        var obj = __recognizer219673032.logProbe([
+                166,
+                4,
+                166,
+                14
+            ], animations), fn = __recognizer219673032.logProbe([
+                166,
+                15,
+                166,
+                22
+            ], obj.forEach);
+        return fn.apply(obj, arguments);
+    }.bind(this)(function (e, i) {
+        __recognizer219673032.logEntry([
+            166,
+            23,
+            166,
+            31
+        ], arguments);
+        (function () {
+            var obj = __recognizer219673032.logProbe([
+                    167,
+                    8,
+                    167,
+                    19
+                ], __recognizer219673032.logProbe([
+                    167,
+                    8,
+                    167,
+                    9
+                ], $)(__recognizer219673032.logProbe([
+                    167,
+                    10,
+                    167,
+                    18
+                ], selector))), fn = __recognizer219673032.logProbe([
+                    167,
+                    20,
+                    167,
+                    31
+                ], obj.removeClass);
+            return fn.apply(obj, arguments);
+        }.bind(this)(__recognizer219673032.logProbe([
+            167,
+            32,
+            167,
+            33
+        ], e)));
+    }));
+    callback = __recognizer219673032.logProbe([
+        170,
+        15,
+        170,
+        23
+    ], callback) || function () {
+        __recognizer219673032.logEntry([
+            170,
+            27,
+            170,
+            35
+        ], arguments);
+    };
+    (function () {
+        var obj = __recognizer219673032.logProbe([
+                172,
+                4,
+                172,
+                15
+            ], __recognizer219673032.logProbe([
+                172,
+                4,
+                172,
+                5
+            ], $)(__recognizer219673032.logProbe([
+                172,
+                6,
+                172,
+                14
+            ], selector))), fn = __recognizer219673032.logProbe([
+                172,
+                16,
+                172,
+                19
+            ], obj.css);
+        return fn.apply(obj, arguments);
+    }.bind(this)('animation-duration', __recognizer219673032.logProbe([
+        172,
+        42,
+        172,
+        47
+    ], delay) / 1000 + 's'));
+    (function () {
+        var obj = __recognizer219673032.logProbe([
+                173,
+                4,
+                173,
+                15
+            ], __recognizer219673032.logProbe([
+                173,
+                4,
+                173,
+                5
+            ], $)(__recognizer219673032.logProbe([
+                173,
+                6,
+                173,
+                14
+            ], selector))), fn = __recognizer219673032.logProbe([
+                173,
+                16,
+                173,
+                24
+            ], obj.addClass);
+        return fn.apply(obj, arguments);
+    }.bind(this)(__recognizer219673032.logProbe([
+        173,
+        25,
+        173,
+        34
+    ], animation)));
+    (function () {
+        var obj = __recognizer219673032.logProbe([
+                175,
+                4,
+                175,
+                15
+            ], __recognizer219673032.logProbe([
+                175,
+                4,
+                175,
+                5
+            ], $)(__recognizer219673032.logProbe([
+                175,
+                6,
+                175,
+                14
+            ], selector))), fn = __recognizer219673032.logProbe([
+                175,
+                16,
+                175,
+                24
+            ], obj.addClass);
+        return fn.apply(obj, arguments);
+    }.bind(this)('animated'));
+    if (!__recognizer219673032.logProbe([
+            176,
+            8,
+            176,
+            14
+        ], remove)) {
+        __recognizer219673032.logProbe([
+            178,
+            8,
+            178,
+            18
+        ], __recognizer219673032.logProbe([
+            178,
+            8,
+            178,
+            16
+        ], callback)());
+        return;
+    }
+    __recognizer219673032.logProbe([
+        182,
+        4,
+        185,
+        13
+    ], __recognizer219673032.logProbe([
+        182,
+        4,
+        182,
+        14
+    ], setTimeout)(function () {
+        __recognizer219673032.logEntry([
+            182,
+            15,
+            182,
+            23
+        ], arguments);
+        (function () {
+            var obj = __recognizer219673032.logProbe([
+                    183,
+                    8,
+                    183,
+                    19
+                ], __recognizer219673032.logProbe([
+                    183,
+                    8,
+                    183,
+                    9
+                ], $)(__recognizer219673032.logProbe([
+                    183,
+                    10,
+                    183,
+                    18
+                ], selector))), fn = __recognizer219673032.logProbe([
+                    183,
+                    20,
+                    183,
+                    31
+                ], obj.removeClass);
+            return fn.apply(obj, arguments);
+        }.bind(this)(__recognizer219673032.logProbe([
+            183,
+            32,
+            183,
+            41
+        ], animation)));
+        __recognizer219673032.logProbe([
+            184,
+            8,
+            184,
+            18
+        ], __recognizer219673032.logProbe([
+            184,
+            8,
+            184,
+            16
+        ], callback)());
+    }, __recognizer219673032.logProbe([
+        185,
+        7,
+        185,
+        12
+    ], delay)));
+}
+function Iterate(callback, repetitions, delay, onFinish) {
+    __recognizer219673032.logEntry([
+        189,
+        9,
+        189,
+        16
+    ], arguments);
+    var i = 0;
+    onFinish = __recognizer219673032.logProbe([
+        192,
+        12,
+        192,
+        20
+    ], onFinish) || function () {
+        __recognizer219673032.logEntry([
+            192,
+            24,
+            192,
+            32
+        ], arguments);
+    };
+    var iterator = __recognizer219673032.logProbe([
+            193,
+            19,
+            204,
+            13
+        ], __recognizer219673032.logProbe([
+            193,
+            19,
+            193,
+            30
+        ], setInterval)(function () {
+            __recognizer219673032.logEntry([
+                193,
+                31,
+                193,
+                39
+            ], arguments);
+            if (__recognizer219673032.logProbe([
+                    194,
+                    11,
+                    194,
+                    22
+                ], repetitions) == __recognizer219673032.logProbe([
+                    194,
+                    26,
+                    194,
+                    27
+                ], i)) {
+                __recognizer219673032.logProbe([
+                    196,
+                    3,
+                    196,
+                    13
+                ], __recognizer219673032.logProbe([
+                    196,
+                    3,
+                    196,
+                    11
+                ], onFinish)());
+                __recognizer219673032.logProbe([
+                    197,
+                    12,
+                    197,
+                    34
+                ], __recognizer219673032.logProbe([
+                    197,
+                    12,
+                    197,
+                    24
+                ], clearTimeout)(__recognizer219673032.logProbe([
+                    197,
+                    25,
+                    197,
+                    33
+                ], iterator)));
+                return;
+            }
+            __recognizer219673032.logProbe([
+                201,
+                8,
+                201,
+                19
+            ], __recognizer219673032.logProbe([
+                201,
+                8,
+                201,
+                16
+            ], callback)(__recognizer219673032.logProbe([
+                201,
+                17,
+                201,
+                18
+            ], i)));
+            __recognizer219673032.logProbe([
+                203,
+                8,
+                203,
+                9
+            ], i)++;
+        }, __recognizer219673032.logProbe([
+            204,
+            7,
+            204,
+            12
+        ], delay)));
 }
