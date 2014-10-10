@@ -229,6 +229,11 @@ body>.inner>#body>.main{
 	overflow: auto;
 }
 
+body>.inner>#body>.main #final-grade{
+	background-color: 
+}
+
+
 body>.inner>#body>.side-bar{
     width: 20%;
     background-color: #AAA;

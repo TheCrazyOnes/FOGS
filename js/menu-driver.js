@@ -352,8 +352,43 @@ function DeleteCurrentSubjectConfirm()
 function DeleteCurrentSubjectRequest()
 {
     var password = $(".window .inner input").val();
-    alert("Deleting current subject with password: " + password);
-    PopupWindow.Close();
+    
+	var vars = {method: "DeleteCurrentSubject"};
+	vars.Password = password;
+	
+	$.post("php/frontend-com.php",vars,function(data){
+		data = JSON.parse(data);
+		
+		if(data.State == "error")
+		{
+			PopupWindow.Show({ 
+				Content: windowContent.Simple, 
+				Title: "Wrong password", 
+				ActionButtons: '<a tabindex=0 onclick = "DeleteCurrentSubjectConfirm();" class="btn blue pull-right">Ok</a> <a tabindex=0 onclick = "PopupWindow.Close();" class="btn gray pull-right">Cancel</a>',
+				Size: {Width: 250, Height: 155},
+				OnRender:function(){
+					$(".window .body .inner").html("You've entered a wrong password, subject not deleted");
+				}
+			});
+		}
+		else
+		{
+			PopupWindow.Show({ 
+				Content: windowContent.Simple, 
+				Title: "Subject deleted", 
+				ActionButtons: '<a tabindex=0 onclick = "PopupWindow.Close();" class="btn blue pull-right">Ok</a>',
+				Size: {Width: 250, Height: 155},
+				OnRender:function(){
+					$(".window .body .inner").html("Subject deleted successfuly");
+				}
+			});
+			
+			ResetSubject();
+		}
+	});
+	
+//	alert("Deleting current subject with password: " + password);
+//    PopupWindow.Close();
 }
 
 /////////////

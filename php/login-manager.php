@@ -34,7 +34,8 @@
         {
             $_SESSION["EmployeeNumber"] = $professor["EmployeeNumber"];
             $_SESSION["Name"] = $professor["Name"];
-            
+            $_SESSION["Password"] = $professor["Password"];
+			
             $data["state"] = "Success";
             $data["credentials"] = $professor;
             return $data;

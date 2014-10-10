@@ -121,7 +121,24 @@ function ViewSubjects()
 
 function DeleteCurrentSubject()
 {
-    echo "Delete current Subject";
+	
+	if($_POST["Password"] != $_SESSION["Password"])
+	{
+		$data["State"] = "error";
+		$data["Reason"] = "Wrong password";
+		return $data;
+	}
+	
+	$ret = ExecuteQuery("DELETE FROM `Enrollment` WHERE Enrollment.SubjectID = {$_SESSION["SubjectID"]}");
+	$ret = ExecuteQuery("DELETE FROM `Subject` WHERE SubjectID = {$_SESSION["SubjectID"]}");
+    
+	unset($_SESSION["SubjectID"]);
+	unset($_SESSION["SubjectDetails"]);
+	
+	$data["State"] = "Success";
+	$data["Reason"] = "Subject Deleted";
+	
+	return $data;
 }
 
 

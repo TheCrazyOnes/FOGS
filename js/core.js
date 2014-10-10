@@ -17,8 +17,18 @@ function LoadSubject(SubjectID)
     });
 }
 
+function ResetSubject()
+{
+	$("#subject-name>span:first-child").html("");
+	$(".main #components").html("");
+	$("#student-name").html("");
+	$("#final-grade").html("");
+	$(".main").addClass("disabled");
+}
+
 function ImplementSubject(data)
 {
+	$(".main").removeClass("disabled");
 	userInfo.SubjectDetails = data.SubjectDetails;
 	$("#subject-name>span:first-child").html(data.SubjectDetails.Name);
 	
@@ -70,7 +80,7 @@ function BuildComponentLevel(component, parent)
 		<div class="panel-heading">\
 			<h4 class="panel-title">\
 				<a class = "'+subClass+'" data-toggle="collapse" > \
-'+key+ field +'<span class = "grade"></span><span class = "percentage">'+component[key].Percentage+'&#37;<span>\
+'+key+ field +'<span class = "grade"></span><span class = "value"></span><span class = "percentage">'+component[key].Percentage+'&#37;<span>\
 				</a>\
 			</h4>\
 		</div>\
@@ -99,6 +109,7 @@ function ImplementStudentList(data)
 	}, data.Students.length, 100, function(){
 
 		$(".side-bar .students li").tooltip({placement: "left"});
+		$(".side-bar .students li:first-child").trigger("click");
 	});
 
 
@@ -138,13 +149,24 @@ function SelectStudent(selected)
 function ImplementStudentRecord(data)
 {
 	userInfo.StudentDetails = data;
+	var tmp = clone(userInfo.SubjectDetails.Component);
 	
-	MergeComponent(userInfo.SubjectDetails.Component, userInfo.StudentDetails.Grade);
+	MergeComponent(tmp, userInfo.StudentDetails.Grade);
 	$(".main #student-name").html(data.Name);
 	
-	alert(JSON.stringify(userInfo.SubjectDetails.Component));
-	FillFields(userInfo.SubjectDetails.Component, ".main #components");
+//	alert(JSON.stringify(tmp));
+//	alert(JSON.stringify(userInfo.SubjectDetails.Component));
+	
+	FillFields(tmp, ".main #components");
 //	FillFields(data.Grade, ".main #components");
+	
+	var finalGrade = 0;
+	$(".main>#components>.panel-group>.panel>.panel-heading .value").each(function(i,e){
+		var str = $(e).html();
+		finalGrade += parseFloat(str.substr(0,str.length -1));
+	});
+	
+	$("#final-grade").html(finalGrade+"%");
 }
 
 function FillFields(node, parent)
@@ -155,17 +177,28 @@ function FillFields(node, parent)
 		
 		if(node[key].sub != null)
 		{
-			$(parent + " [data-name='"+key.split(" ").join("-")+"']>.panel-heading .grade").html(node[key].sub.value);	
+			$(parent + " [data-name='"+key.split(" ").join("-")+"']>.panel-heading .grade").html(MaxLength(node[key].sub.grade,5) + "%");	
+			$(parent + " [data-name='"+key.split(" ").join("-")+"']>.panel-heading .value").html(MaxLength(node[key].sub.value,5) + "%");
 //			alert(parent + " [data-name='"+key.split(" ").join("-")+"']>.panel-heading .grade");
 //			alert($(parent + " .grade").html() + "\n" + JSON.stringify(node[key].sub));
 			FillFields(node[key].sub, parent + " [data-name='"+key.split(" ").join("-")+"']");
 		}
 		else
 		{
-			
+			$(parent + " [data-name='"+key.split(" ").join("-")+"']>.panel-heading .grade").html(MaxLength(node[key].grade,5) + "%");	
+			$(parent + " [data-name='"+key.split(" ").join("-")+"']>.panel-heading .value").html(MaxLength(node[key].value,5) + "%");
 			$(parent + " [data-name='"+key.split(" ").join("-")+"'] input").val(node[key].raw);	
 		}
 	}	
+}
+
+function MaxLength(str, length)
+{
+	str += "";
+	if(str.length < length)
+		length = str.length;
+	
+	return str.substr(0,length);
 }
 
 //function FillFields(node, parent)
@@ -198,6 +231,7 @@ function SaveGrade()
 	$.post("php/frontend-com.php",vars,function(data){
 		AlertOnError(data);
 		$(".main").StopLoading();
+		ImplementStudentRecord(userInfo.StudentDetails);
 	});
 	
 	
@@ -207,37 +241,59 @@ function HarvestFields(node, parent)
 {
 	for (var key in node) {
 
-		if((typeof node[key])!= "string")
+		if((typeof node[key]) == "object")
+		{	
 			HarvestFields(node[key], parent + " [data-name='"+key.split(" ").join("-")+"']");
+		}
 		else
+		{
 			node[key] = $(parent + " [data-name='"+key.split(" ").join("-")+"'] input").val();	
+		}
 	}	
 }
 
 
 //Compute grade
-function MergeComponent(node, value)
+function MergeComponent(node, value, percentage)
 {
 	var grade = 0;
 	var base = parseInt(userInfo.SubjectDetails.Base);
 	var factor = 100 - base;
+	percentage = percentage || 0;
 //	alert(base + " "+factor);
 	for(var key in node)
 	{	
 		if( node[key].sub != null )
 		{
-//			alert(key + " " + JSON.stringify(value[key]));	
-			MergeComponent(node[key].sub, value[key]);
+			MergeComponent(node[key].sub, value[key], node[key].Percentage);
+			grade += node[key].sub.value;
+//			alert(JSON.stringify(node[key]));
 		}
 		else
 		{
-//			alert((node[key].Percentage/100));
-			node[key].raw = parseInt(value[key]);
-			node[key].value = ((node[key].raw / node[key].max) * factor + base) * (node[key].Percentage/100) ;	
-//			node[key].formula = "(("+node[key].raw + "/" + node[key].max + ")" + "*" + factor + "+" + base +")"+ "*" + "(" + node[key].Percentage+"/"+100+")";
+			if(typeof value[key] == "string")
+				value[key] = parseInt(value[key]);
+			
+			node[key].raw = value[key];
+			node[key].grade = ((node[key].raw / node[key].max) * factor + base);
+			node[key].value = node[key].grade * (node[key].Percentage/100) ;	
+			
 			grade += node[key].value;
 		}
 	}
 	
-	node.value = grade;
+//	alert(grade + ", " + percentage);
+	
+	node.value = grade * (percentage / 100);
+	node.grade = grade;
+}
+
+////Utilities
+function clone(obj) {
+	if (null == obj || "object" != typeof obj) return obj;
+	var copy = obj.constructor();
+	for (var attr in obj) {
+		if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
+	}
+	return copy;
 }
