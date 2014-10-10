@@ -70,7 +70,7 @@ function BuildComponentLevel(component, parent)
 		<div class="panel-heading">\
 			<h4 class="panel-title">\
 				<a class = "'+subClass+'" data-toggle="collapse" > \
-'+key+ field +'<span class = "percentage">'+component[key].Percentage+'&#37;<span>\
+'+key+ field +'<span class = "grade"></span><span class = "percentage">'+component[key].Percentage+'&#37;<span>\
 				</a>\
 			</h4>\
 		</div>\
@@ -131,29 +131,53 @@ function SelectStudent(selected)
 		$(".main").StopLoading();
 	});
 	
-//	alert(JSON.stringify(userInfo.StudentDetails.Grade));
-	MergeComponent(userInfo.SubjectDetails.Component, userInfo.StudentDetails.Grade);
-	alert(JSON.stringify(userInfo.SubjectDetails.Component));
+	
+	
 }
 
 function ImplementStudentRecord(data)
 {
 	userInfo.StudentDetails = data;
+	
+	MergeComponent(userInfo.SubjectDetails.Component, userInfo.StudentDetails.Grade);
 	$(".main #student-name").html(data.Name);
 	
-	FillFields(data.Grade, ".main #components");
+	alert(JSON.stringify(userInfo.SubjectDetails.Component));
+	FillFields(userInfo.SubjectDetails.Component, ".main #components");
+//	FillFields(data.Grade, ".main #components");
 }
 
 function FillFields(node, parent)
 {
-	for (var key in node) {
-	
-		if((typeof node[key]) != "string")
-			FillFields(node[key], parent + " [data-name='"+key.split(" ").join("-")+"']");
+//	alert(JSON.stringify(node));
+	for (var key in node) 
+	{
+		
+		if(node[key].sub != null)
+		{
+			$(parent + " [data-name='"+key.split(" ").join("-")+"']>.panel-heading .grade").html(node[key].sub.value);	
+//			alert(parent + " [data-name='"+key.split(" ").join("-")+"']>.panel-heading .grade");
+//			alert($(parent + " .grade").html() + "\n" + JSON.stringify(node[key].sub));
+			FillFields(node[key].sub, parent + " [data-name='"+key.split(" ").join("-")+"']");
+		}
 		else
-			$(parent + " [data-name='"+key.split(" ").join("-")+"'] input").val(node[key]);	
+		{
+			
+			$(parent + " [data-name='"+key.split(" ").join("-")+"'] input").val(node[key].raw);	
+		}
 	}	
 }
+
+//function FillFields(node, parent)
+//{
+//	for (var key in node) {
+//
+//		if((typeof node[key]) != "string")
+//			FillFields(node[key], parent + " [data-name='"+key.split(" ").join("-")+"']");
+//		else
+//			$(parent + " [data-name='"+key.split(" ").join("-")+"'] input").val(node[key]);	
+//	}	
+//}
 
 function SaveGrade()
 {
@@ -190,11 +214,14 @@ function HarvestFields(node, parent)
 	}	
 }
 
-var log = "";
 
+//Compute grade
 function MergeComponent(node, value)
 {
 	var grade = 0;
+	var base = parseInt(userInfo.SubjectDetails.Base);
+	var factor = 100 - base;
+//	alert(base + " "+factor);
 	for(var key in node)
 	{	
 		if( node[key].sub != null )
@@ -204,17 +231,13 @@ function MergeComponent(node, value)
 		}
 		else
 		{
-//			alert(node[key].Percentage +"-" +value[key]);
-			node[key].raw = value[key];
-			node[key].value = (value[key] / node[key].max) * (node[key].Percentage/100) ;	
+//			alert((node[key].Percentage/100));
+			node[key].raw = parseInt(value[key]);
+			node[key].value = ((node[key].raw / node[key].max) * factor + base) * (node[key].Percentage/100) ;	
+//			node[key].formula = "(("+node[key].raw + "/" + node[key].max + ")" + "*" + factor + "+" + base +")"+ "*" + "(" + node[key].Percentage+"/"+100+")";
 			grade += node[key].value;
 		}
 	}
-
-	node.value = grade;
-}
-
-function ComputeGrade()
-{
 	
+	node.value = grade;
 }

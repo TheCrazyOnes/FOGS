@@ -117,6 +117,10 @@ a:hover{
 	color: #0A0;
 }
 
+.panel-group .grade{
+	color: #0A0;
+}
+
 .panel-group .holder:after{
 	content: attr(data-max);
 	
