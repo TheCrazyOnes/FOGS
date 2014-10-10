@@ -11,8 +11,7 @@ var windowContent = {
 }
 
 $(document).ready(function(){
-   
-    
+	
 });
 
 
@@ -184,15 +183,16 @@ function Animate(selector, animation, callback, delay, remove)
     
 }
 
-function Iterate(callback, repetitions,delay)
+function Iterate(callback, repetitions,delay, onFinish)
 {
     var i = 0;
-	
+	onFinish = onFinish || function(){};
     var iterator = setInterval(function(){
         if(repetitions == i)
 		{
-			return;
+			onFinish();
             clearTimeout(iterator);
+			return;
 		}
 
         callback(i);

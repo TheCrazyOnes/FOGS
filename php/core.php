@@ -3,23 +3,47 @@
     function LoadSubject()
     {
         $data;
+		
+		if(!isset($_POST['SubjectID']))
+			$_POST['SubjectID'] = $_SESSION['SubjectID'];
+		
         $subject = QuerySingleRow("SELECT * FROM Subject WHERE SubjectID = {$_POST['SubjectID']}");
         
 		if($subject["EmployeeNumber"] != $_SESSION["EmployeeNumber"])
-			die("{State: 'error', Reason: 'You do not own this subject.'}");
+		{
+			$data["State"] = 'error';
+			$data["Reason"] = 'You do not own this subject.';
+			
+			return $data;
+			
+		}
 		
         if(count($subject) != 0)
+		{
+			$subject["Component"] = json_decode($subject["Component"],true);	
             $data["SubjectDetails"] = $subject;
+            $_SESSION["SubjectDetails"] = $subject;
+		}
 		else
-			die("{State: 'error', Reason: 'Subject does not exist.'}");
-        
-        $data["Students"] = SQLArrayToArray(ExecuteQuery("SELECT Student.* FROM Student, Enrollment WHERE SubjectID = {$_POST['SubjectID']} AND Enrollment.StudentNumber = Student.StudentNumber"));
-        
-		$_SESSION['SubjectID'] = $_POST['SubjectID'];
+		{
+			$data["State"] = 'error';
+			$data["Reason"] = 'Subject does not exist.';
+
+			return $data;
+		}
 		
-        echo json_encode($data);
+//		$_SESSION['SubjectComponent'] = json_decode($subject["Component"],true);
+		$_SESSION['SubjectID'] = $_POST['SubjectID'];
+        
+        $data["Students"] = GetStudents();
+        
+		
+		
+        return $data;
         
     }
 
+	
+	
 
 ?>

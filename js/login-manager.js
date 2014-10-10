@@ -22,7 +22,7 @@ function Initialize()
     $.post("php/frontend-com.php", {method: "Initialize"}, function(data){
 
         data = JSON.parse(data);
-
+		
         setTimeout(function(){
             $("#login-menu #login-logo").removeClass("loading");
             $("#login-menu").removeClass("loading");
@@ -37,7 +37,11 @@ function Initialize()
                 }
                 else
                 {
-                    ExitLoginForm(data);
+					if(data.SubjectDetails != null)
+						ImplementSubject(data);
+                    
+					ExitLoginForm(data);
+					
                 }
 
             },500);

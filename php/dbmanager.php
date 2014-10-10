@@ -103,7 +103,8 @@ function SanitizeArray($arr)
     global $link;
     foreach($arr as &$item)
     {
-        $item = mysqli_real_escape_string($link, $item);
+		if(is_string($item))
+        	$item = mysqli_real_escape_string($link, $item);
     }
     
     return $arr;

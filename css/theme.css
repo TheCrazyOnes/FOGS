@@ -97,6 +97,26 @@ a:hover{
 /*    opacity: 0.93;*/
 }
 
+.panel-group input{
+	margin-left: 10px;
+	border: 1px solid #888;
+	width: 100px;
+}
+
+.panel-group .holder{
+	background-color: #888;
+	height: 100%;
+	color: black;
+	margin: 0px;
+	padding: 4px 5px;
+}
+
+.panel-group .holder:after{
+	content: attr(data-max);
+	
+	
+}
+
 
 .panel-group .add{
     opacity: 0.9;
@@ -106,10 +126,16 @@ a:hover{
 .panel-group .panel-heading{
     border-radius: 0px !important;
     border: none;
-    background-color: #777;
+    background-color: #555555;
     color: #999;
     padding: 0px;
 }
+
+.panel-group .panel-heading a{
+    color: #999;
+}
+
+
 
 /*second level*/
 .panel-group .panel-group .panel-heading{
@@ -123,7 +149,14 @@ a:hover{
 
 /*third level*/
 .panel-group .panel-group .panel-group .panel-heading{
-    background-color: #555;
+	background-color: #252525;
+}
+
+.panel-group .panel-group .panel-group .panel-heading a{
+/*
+	background-color: #555;
+	color: #111;
+*/
 }
 
 .panel-group .panel-body{
@@ -146,11 +179,32 @@ a:hover{
     margin: 0px !important;
     border: none;
     padding: 0px;
-} 
+}
+
+.panel-group .panel-title .sub:before {
+	content:"\e072";
+	position:relative;
+	top:1px;
+	
+	font-size: 0.7em;
+	display:inline-block;
+	font-family:'Glyphicons Halflings';
+	font-style:normal;
+	font-weight:400;
+	line-height:0.7em;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale;
+	transition: 0.5s transform;
+}
+
+.panel-group .panel-title .sub.shown:before {
+	transform: rotate(90deg);
+}
+
 
 .panel-group .panel-heading a{
-    color: #999;
-    color: black;
+    color: #CCC;
+/*    color: black;*/
     text-decoration: none;
     display: block;
     padding: 10px 15px;
@@ -180,6 +234,7 @@ a:hover{
     background-color: #0AF;
     background-color: #666;
     background-color: #888;
+    background-color: #666;
     
     color: black;
 /*    border-bottom: 1px solid #0AF;*/
@@ -226,6 +281,14 @@ input{
 .layer-2{ z-index: 200; }
 .layer-3{ z-index: 300; }
 .layer-4{ z-index: 400; }
+
+.bullet{
+/*	background-color: #555;*/
+	padding: 3px 5px;
+	font-size: 0.95em;
+	float: right;
+/*	color: 555;*/
+}
 
 .btn{
     background-color: #444;

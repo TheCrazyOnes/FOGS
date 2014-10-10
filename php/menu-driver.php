@@ -10,25 +10,70 @@ function NewStudent()
 		$data["State"] = 'error';
 		$data["Reason"] ='Student number already exists';
 		
-		die(json_encode($data));
+		return $data;
 	}
 	else
 	{
 		ExecuteQuery("INSERT INTO Student(`Name`, `StudentNumber`, `ProfessorEmployeeNumber`) VALUES('{$_POST['StudentName']}','{$_POST['StudentNumber']}','{$_SESSION['EmployeeNumber']}')");
 		
 		$data["State"] = 'success';
-		echo json_encode($data);
+		return $data;
 	}
 	
 }
 
 function ViewStudents()
 {
-	$students = SQLArrayToArray(ExecuteQuery("SELECT * FROM Student WHERE ProfessorEmployeeNumber = '{$_SESSION['EmployeeNumber']}'"));
-	$data = SQLArrayToArray(ExecuteQuery("SELECT * FROM Enrollment WHERE SubjectID = {$_SESSION['SubjectID']}"));
+	$data = SQLArrayToArray(ExecuteQuery("SELECT * FROM Student WHERE ProfessorEmployeeNumber = '{$_SESSION['EmployeeNumber']}' ORDER BY Name"));
+	$enrolledStudents = SQLArrayToArray(ExecuteQuery("SELECT * FROM Enrollment WHERE SubjectID = {$_SESSION['SubjectID']}"));
 	
+	$new;
+	foreach($enrolledStudents as $e)
+	{
+		foreach($data as &$s)
+		{
+			if($s["StudentNumber"] == $e["StudentNumber"])
+			{	
+				$s = null;
+			}
+		}
+	}
 	
-	echo json_encode($data);
+	$data = array_values(array_filter($data));
+	
+	return $data;
+	
+}
+
+function AddStudentsToSubject()
+{
+
+	$students = $_POST['Students'];
+	for($i = 0; $i < count($students); $i++)
+	{
+		$component = $_SESSION["SubjectDetails"]["Component"];
+		
+		$structure;
+		GenerateGradeFromComponent($_SESSION["SubjectDetails"]["Component"], $structure);
+		
+		$structure = json_encode($structure);
+		
+		ExecuteQuery("INSERT INTO Enrollment(`StudentNumber`,`SubjectID`,`Grade`) VALUES('{$students[$i]}', {$_SESSION['SubjectID']}, '$structure')");
+	}
+	
+	return GetStudents();
+}
+
+function GenerateGradeFromComponent($component, &$parent)
+{
+	
+	foreach($component as $key => &$val)
+	{
+		if($val["sub"] != null)
+			GenerateGradeFromComponent($val["sub"], $parent[$key]);
+		else
+			$parent[$key] = "0";
+	}
 	
 }
 
@@ -40,7 +85,7 @@ function NewSubject()
     {
         $data["State"] = "error";
         $data["Reason"] = "Subject already exists";
-        die(json_encode($data));
+        return $data;
     }
     else
 	{
@@ -48,12 +93,15 @@ function NewSubject()
 		$_POST["Description"] = htmlspecialchars($_POST["Description"]);
 		$_POST["SubjectName"] = htmlspecialchars($_POST["SubjectName"]);
 		
-    	$ret = ExecuteQuery("INSERT INTO Subject(`Name`,`Description`,`EmployeeNumber`) VALUES('{$_POST['SubjectName']}','{$_POST['Description']}','{$_SESSION['EmployeeNumber']}')");
+		
+		$defaultStructure = '{"Prelim":{"Percentage":30,"sub":{"Quiz":{"Percentage":20,"sub":{}},"Project":{"Percentage":20,"sub":{}},"MajorExam":{"Percentage":60,"sub":{}}}},"Midterm":{"Percentage":30,"sub":{"Quiz":{"Percentage":20,"sub":{}},"Project":{"Percentage":20,"sub":{}},"MajorExam":{"Percentage":60,"sub":{}}}},"Finals":{"Percentage":40,"sub":{"Quiz":{"Percentage":20,"sub":{}},"Project":{"Percentage":20,"sub":{}},"MajorExam":{"Percentage":60,"sub":{}}}}}';
+		
+    	$ret = ExecuteQuery("INSERT INTO Subject(`Name`,`Description`,`EmployeeNumber`, `Component`) VALUES('{$_POST['SubjectName']}','{$_POST['Description']}','{$_SESSION['EmployeeNumber']}', '$defaultStructure')");
         
         $data["State"] = "success";
         $data["Message"] = "Successfuly created a new subject.";    
         $data["SubjectID"] = mysqli_insert_id($link);
-        echo json_encode($data);
+        return $data;
     }
     
     
@@ -69,7 +117,7 @@ function ViewSubjects()
 		$data[$i]["Enrollees"] = QuerySingleRow("SELECT COUNT(*) as c FROM Enrollment WHERE SubjectID = {$data[$i]['SubjectID']}")["c"];
 	}
 
-	echo json_encode($data);
+	return $data;
 }
 
 function DeleteCurrentSubject()

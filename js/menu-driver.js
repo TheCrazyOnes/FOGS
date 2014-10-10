@@ -1,5 +1,6 @@
 $(document).ready(function(){
     
+	
 });
 
 var userInfo = {
@@ -14,6 +15,66 @@ function UniversalKeyUp()
          PopupWindow.Close();
     }
 }
+
+
+
+
+/*==========================*/
+/*======Component menu=====*/
+/*========================*/
+
+function EditComponent()
+{
+	PopupWindow.Show({ 
+		Content: windowContent.Simple, 
+		Title: "Edit components", 
+		ActionButtons: '<a tabindex=0 onclick = "EditComponentRequest();" class="btn blue pull-right">Next</a> <a tabindex=0 onclick = "PopupWindow.Close();" class="btn gray pull-right">Cancel</a>',
+		Size: {Width: 281, Height: 155}, 
+		OnRender:function(){
+			var str = "Enter password to confirm <input type = 'password' placeholder='password' style='display: block; width: 100%'>";
+			$(".window .body .inner").html(str);    
+		}
+	});
+}
+
+function EditComponentRequest()
+{
+	var vars = {method:"GetComponent"};
+	$.post("php/frontend-com.php",vars,function(data){
+		
+	});
+	
+	var test = 
+	{
+		"Prelim" : {
+			"Percentage": 30, 
+			"sub": {
+				"Quiz" : {"Percentage": 20, "sub" : {}},
+				"Project" : {"Percentage": 20, "sub" : {}},
+				"MajorExam" : {"Percentage": 60, "sub" : {}}
+			}
+		},
+		"Midterm" : {
+			"Percentage": 30, 
+			"sub": {
+				"Quiz" : {"Percentage": 20, "sub" : {}},
+				"Project" : {"Percentage": 20, "sub" : {}},
+				"MajorExam" : {"Percentage": 60, "sub" : {}}
+			}
+		},
+		"Finals" : {
+			"Percentage": 40, 
+			"sub": {
+				"Quiz" : {"Percentage": 20, "sub" : {}},
+				"Project" : {"Percentage": 20, "sub" : {}},
+				"MajorExam" : {"Percentage": 60, "sub" : {}}
+			}
+		}
+	}
+
+}
+
+
 
 /*========================*/
 /*======Student menu======*/
@@ -39,17 +100,15 @@ function AddStudent()
 
             $.post("php/frontend-com.php", {method:"ViewStudents"}, function(data){
 				
-//				alert(data);
 				
 				data = JSON.parse(data);
 				
                 Iterate(function(i){
-//                    $(".window .body ul").append("<li tabindex=0 data-id='"+i+"' onclick='SelectSubjectItem(this)' onfocus='SelectSubjectItem(this)'>lorem</li>");
-					$(".window .body ul").append("<li data-student-number='"+data[i].StudentNumber+"' onclick='$(this).toggleClass(\"selected\");'>"+ data[i].StudentNumber + " | "+data[i].Name+"</li>");
+					$(".window .body ul").append("<li data-student-number='"+data[i].StudentNumber+"' onclick='$(this).toggleClass(\"selected\");'>"+ data[i].Name + " <span class = 'bullet'> "+data[i].StudentNumber+"<span></li>");
 
                 }, data.length , 50);
 
-				$(".window .body #description").html("Showing " + data.length + " student(s)");
+				$(".window .body #description").html("Showing " + data.length + " unenrolled student(s)");
 				
                 $(".window .body ul").waitMe("hide");
             });
@@ -60,12 +119,22 @@ function AddStudent()
 function AddStudentRequest()
 {
     var ids = [];
-    
+    var vars = {};
+	
+	vars.method = "AddStudentsToSubject";
+	
     $(".window .body ul li.selected").each(function(i,e){
         ids[ids.length] = $(e).attr("data-student-number");
     });
     
-    alert("Add student Request with ids: " + JSON.stringify(ids));
+	vars.Students = ids;
+
+    $.post("php/frontend-com.php", vars, function(data){
+		data = JSON.parse(data);
+		ImplementStudentList({Students: data});
+	});
+	
+//	alert("Add student Request with ids: " + JSON.stringify(ids));
     PopupWindow.Close();
 }
 

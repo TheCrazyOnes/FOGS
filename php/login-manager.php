@@ -8,18 +8,20 @@
             $data["Name"] = $_SESSION["Name"];
         
 			
-			if(isset($_SESSION['Subject']))
+			if(isset($_SESSION['SubjectID']))
 			{
 				//load subject details
+				$data = MergeArray($data, LoadSubject($_SESSION["SubjectID"]));
 			}
 			
-            echo json_encode($data);
+			
+            return $data;
         }
         else
         {
             $data["state"] = "logged out";
             
-            echo json_encode($data);
+            return $data;
         }
 		
     }
@@ -35,13 +37,13 @@
             
             $data["state"] = "Success";
             $data["credentials"] = $professor;
-            echo json_encode($data);
+            return $data;
         }
         else
         {
             $data["state"] = "error";
             $data["reason"] = "Wrong password or EmployeeNumber";
-            echo json_encode($data);
+            return $data;
         }
     }
 
@@ -54,7 +56,7 @@
         {
             $data["state"] = "error";
             $data["reason"] = "Employee number is already in use";
-            echo json_encode($data);
+            return $data;
         }
         else
         {
@@ -71,7 +73,7 @@
 
     function ViewSessionContent()
     {
-        echo json_encode($_SESSION);
+        return $_SESSION;
     }
 
 ?>
