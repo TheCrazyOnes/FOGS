@@ -1,6 +1,30 @@
 <?php
 /////reports menu//////
 
+function SaveGradeSettings()
+{
+	$_POST['Component'] = json_encode($_POST['Component']);
+	ExecuteQuery("UPDATE Subject SET Base = {$_POST['Base']}, Component = '{$_POST['Component']}' WHERE SubjectID = {$_SESSION['SubjectID']}");
+	
+	
+	return LoadSubject();
+}
+
+function EditGradeSettings()
+{
+	if($_POST["Password"] != $_SESSION["Password"])
+	{
+		$data["State"] = "error";
+		$data["Reason"] = "Wrong password";
+		return $data;
+	}
+	
+	$data["State"] = "success";
+	
+	return $data;
+	
+}
+
 function ViewSubjectRecords()
 {
 //	sleep(2);

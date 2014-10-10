@@ -7,8 +7,6 @@ function LoadSubject(SubjectID)
     PopupWindow.Object.StartLoading();
     $.post("php/frontend-com.php", vars, function(data){
 		
-		
-		
         data = JSON.parse(data);
 		
 		ImplementSubject(data);
@@ -41,6 +39,7 @@ function ImplementSubject(data)
 	
 	BuildComponentLevel(root, "#components");
 	
+	$(".main #components").append("<br><br><a onclick='ConfirmStudentDelete()' class = 'btn gray small pull-right'>Delete Student</a>");
 	
 	$('[data-toggle="collapse"]').click(function(){
 		$target = $(this).parent().parent().siblings();
@@ -50,9 +49,74 @@ function ImplementSubject(data)
 		
 	});
 	
+	for(var key in userInfo.SubjectDetails.Component)
+	{
+		if(userInfo.SubjectDetails.Component[key].locked == undefined)
+			userInfo.SubjectDetails.Component[key].locked = "false";
+		
+		$(".main #components [data-name='"+key+"']").attr("locked", userInfo.SubjectDetails.Component[key].locked);
+	}
+	
 	ImplementStudentList(data);
 
 	
+}
+
+function ConfirmStudentDelete()
+{
+	PopupWindow.Show({ 
+		Content: windowContent.Simple, 
+		Title: "Confirm Student Delete", 
+		ActionButtons: '<a tabindex=0 onclick = "PopupWindow.Close();" class="btn blue pull-right">No</a> <a tabindex=0 onclick = "PasswordConfirmStudentDelete();" class="btn gray pull-right">Yes</a>',
+		Size: {Width: 250, Height: 165},
+		OnRender:function(){
+			$(".window .body .inner").html("Are you sure you want to delete the current student? All his records will be lost.");
+		}
+	});
+}
+
+function PasswordConfirmStudentDelete()
+{
+	PopupWindow.Show({ 
+		Content: windowContent.Simple, 
+		Title: "Confirm Student Delete", 
+		ActionButtons: '<a tabindex=0 onclick = "StudentDeleteRequest();" class="btn red pull-right">Delete</a> <a tabindex=0 onclick = "PopupWindow.Close();" class="btn gray pull-right">Cancel</a>',
+		Size: {Width: 250, Height: 175},
+		OnRender : function(){
+			$(".window .body .inner").html("Please confirm delete with your password <input type = 'password' placeholder='Password' style='display: block; width: 100%'>");
+		}
+	});
+}
+
+function StudentDeleteRequest()
+{
+	var password = $(".window .inner input").val();
+
+	var vars = {method: "DeleteCurrentStudent"};
+	vars.Password = password;
+	vars.StudentNumber = userInfo.StudentDetails.StudentNumber;
+	$.post("php/frontend-com.php",vars,function(data){
+		data = JSON.parse(data);
+
+		if(data.State == "error")
+		{
+			PopupWindow.Show({ 
+				Type: "error",
+				Content: windowContent.Simple, 
+				Title: "Wrong password", 
+				ActionButtons: '<a tabindex=0 onclick = "PasswordConfirmStudentDelete();" class="btn blue pull-right">Ok</a> <a tabindex=0 onclick = "PopupWindow.Close();" class="btn gray pull-right">Cancel</a>',
+				Size: {Width: 250, Height: 155},
+				OnRender:function(){
+					$(".window .body .inner").html("You've entered a wrong password, subject not deleted");
+				}
+			});
+		}
+		else
+		{
+			PopupWindow.Close();
+			ImplementStudentList({Students: data});
+		}
+	});
 }
 
 function BuildComponentLevel(component, parent)
@@ -130,7 +194,7 @@ function SelectStudent(selected)
 	$(selected).addClass("selected");
 	userInfo.SelectedStudent = $(selected).attr("data-student-number");
 //	LoadStudentRecord(userInfo.SelectedStudent);
-
+	
 	var vars = {method: "LoadStudent"};
 	vars.StudentNumber = userInfo.SelectedStudent;
 	
@@ -142,9 +206,11 @@ function SelectStudent(selected)
 	});
 	
 	$.post("php/frontend-com.php",vars,function(data){
+
 		data = JSON.parse(data);
 		ImplementStudentRecord(data);
 		$(".main").StopLoading();
+
 	});
 	
 	

@@ -591,3 +591,101 @@ footer #copyright{
 #reports table td.level-2,#reports table th.level-2{background-color: rgba(0,0,0,0.1);}
 #reports table td.level-3,#reports table th.level-3{background-color: rgba(0,0,0,0.0);}
 #reports table td.level-4,#reports table th.level-4{background-color: rgba(0,0,0,0.5);}
+
+#about-pane {
+	background-color: #333;
+	color: #999;
+	text-align: center;
+}
+
+#about-pane .glyphicon{
+	position: absolute;
+	right: 15px;
+	top: 0px;
+	font-size: 15px;
+	line-height: 15px;
+	cursor: pointer;
+	padding: 10px;
+	padding-top: 25px;
+	z-index: 400;
+	transition: 0.5s;
+}
+
+#about-pane .glyphicon:hover{
+	color: #333;
+	background-color: #AAA;	
+}
+
+#about-pane #login-logo{
+	height: 550px;
+}
+
+#about-pane #login-logo #caption{
+	font-size: 13px;
+	-webkit-font-smoothing:antialiased;
+	letter-spacing: 2px;
+	padding-left: 10px;
+}
+
+#about-pane>.row {
+	height: 100%;
+}
+
+#about-pane .col-xs-4{
+	position: relative;
+	height: 100%;
+}
+
+#about-pane .col-xs-4>div{
+	height: 200px;
+	width: 80%;
+}
+
+
+#about-pane .col-xs-4>div:hover .note{
+	margin-top: 100px;
+	opacity: 1;
+}
+
+#about-pane .col-xs-4 .note{
+	opacity: 0;
+	margin: 0px 20%;
+	margin-top: 0px;
+	text-align: center;
+	transition: 0.5s;
+/*	transition-timing-function: ease-in-out;*/
+}
+
+
+#about-pane .col-xs-4 .image{
+	width: 80px;
+	height: 80px;
+	left: 50%;
+	position: relative;
+	margin-left: -40px;
+	border-radius: 100%;
+	background-position: center;
+	background-size: cover;
+	margin-bottom: 20px;
+	z-index: 400;
+	box-shadow: 0px 0px 0px 0px #333, 0px 0px 0px 0px #0af;
+	transition: 0.3s;
+}
+
+
+
+#about-pane .col-xs-4>div:hover .image{
+	box-shadow: 0px 0px 0px 8px #333, 0px 0px 0px 10px #0af;
+
+
+}
+
+
+#about-pane .col-xs-4 .position{
+	background-color: #222;
+	display: inline-block;
+	padding: 3px 10px;
+}
+
+
+

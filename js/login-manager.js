@@ -39,7 +39,7 @@ function Initialize()
                 {
 					if(data.SubjectDetails != null)
 						ImplementSubject(data);
-                    
+
 					ExitLoginForm(data);
                 }
 

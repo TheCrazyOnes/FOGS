@@ -354,10 +354,68 @@ input{
 .btn.red{background-color: #f33; color: black;}
 .btn.red:hover{background-color: #f55; color: black;}
 
+
+.btn.small{padding: 2px 5px;}
+
+.switch{
+	background-color: #0af;
+	cursor: pointer;
+	padding: 5px;
+	margin-bottom: 5px;
+	box-shadow: inset 0px -3px 0px rgba(0,0,0,0.2);
+	
+	transition: 0.5s;
+	color: black;
+	position: relative;
+	top: 0px;
+}
+
+.switch.on{
+	color: #DDD;
+	background-color: #888;
+	top: 2px;
+	box-shadow: 0px 0px 0px rgba(0,0,0,0.5);
+}
+.switch.on:after{
+	content: 'locked';
+	opacity: 0.5;
+	color: black;
+	text-align: right;
+	display: block;
+	font-size: 1.2em;
+	position: absolute;
+	right: 10px;
+	top: 0px;
+}
+
+[locked="true"] input{
+	opacity: 0.5;
+	border: 1px solid #FFA;
+	pointer-events: none;
+	color: #000;
+}
+
+[locked="true"]>.panel-heading a:after{
+	content:"\e033";
+	position:relative;
+	top:1px;
+	display:inline-block;
+	font-family:'Glyphicons Halflings';
+	font-style:normal;
+	font-weight:400;
+	line-height:1;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale;
+	margin-left: 10px;
+}
+
+
 /*
 .btn.loading{
     color: transparent !important;
     border: 1px solid transparent;
 }
 */
+
+
 

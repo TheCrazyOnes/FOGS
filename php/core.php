@@ -1,5 +1,22 @@
 <?php
 
+
+	function DeleteCurrentStudent()
+	{
+		if($_POST["Password"] != $_SESSION["Password"])
+		{
+			$data["State"] = "error";
+			$data["Reason"] = "Wrong password";
+			return $data;
+		}
+		
+		ExecuteQuery("DELETE FROM Enrollment WHERE SubjectID = {$_SESSION['SubjectID']} AND StudentNumber = '{$_POST['StudentNumber']}'");
+		
+		$data = ViewEnrolledStudents();
+		return $data;
+	}
+
+
     function LoadSubject()
     {
         $data;

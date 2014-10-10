@@ -51,14 +51,15 @@ var PopupWindow = {
                 ActionButtons: '<a onclick = "PopupWindow.Close();" class="btn gray pull-right">Done</a>',
                 Title: "Menu",
                 Size: {Width: 500, Height: 300},
-                OnRender: function(){}
+                OnRender: function(){},
+				Html: PopupWindow.Html
             };
 
             
             defaultOptions = MergeArray(defaultOptions, options);
 
             
-            $("body>.inner").append(PopupWindow.Html);
+            $("body>.inner").append(defaultOptions.Html);
             $(".window .body").html(defaultOptions.Content);
             $(".window").css({width: defaultOptions.Size.Width + "px", height: defaultOptions.Size.Height + "px"})
             $(".window .title").addClass(defaultOptions.Type);

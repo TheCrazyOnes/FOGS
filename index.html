@@ -26,8 +26,10 @@
 
             <header>
                 <ul id = "head" class="reset">
-                    <li id="logo">&nbsp;</li>
-                    <li id="subject-name"><span>No subject selected</span><span class=" btn mini round transparent glyphicon glyphicon-pencil" style="font-size: 15px;"></span></li>
+                    <li onclick="ShowAbout()" id="logo">&nbsp;</li>
+                    <li id="subject-name"><span>No subject selected</span>
+<!--						<span class=" btn mini round transparent glyphicon glyphicon-pencil" style="font-size: 15px;"></span>-->
+					</li>
                     <li id="user" class="pull-right">
                         <strong>loading...</strong>
 						<div>loading...</div>
@@ -54,13 +56,12 @@
                     <ul class="reset">
                         <li onclick="AddStudent();">Add students..</li>
                         <li onclick="NewStudent();">Create new student..</li>
-						<li onclick="ManageStudent();">Manage students</li>
                     </ul>
                     </li><!--
                  --><li class="sub">
-                        <div>Component</div>
+                        <div>Grade</div>
                         <ul class="reset">
-                            <li onclick="EditComponent();">Edit components</li>
+                            <li onclick="EditGradeSettings();">Edit grade settings</li>
                         </ul>
                     </li><!--
                  --><li class="sub">
@@ -115,7 +116,46 @@
                 <span id = "state"></span>
                 <span id = "copyright">Designed and Developed by <a onclick="ShowAbout();">TheCrazyOnes</a></span>
             </footer>
-
+			
+<!--
+			<div id = "about-pane" class = 'absolute-center layer-4 animated slideInUp'>
+				<div onclick="HideAbout()" class = "glyphicon glyphicon-remove"></div>
+				<div id = "login-logo" class="absolute-center">
+					<img src="images/logo-blue.png">
+					<span>FOGS</span>
+					<div id = "caption">Developement Team</div>
+				</div>
+				<div class = "row">
+					<div class="col-xs-4">
+						<div id = "luigi" class="absolute-center">
+							<div class="image" style="background-image: url(images/luigi.png);"></div>
+							<div>Mendoza, Luigi</div>
+							<div class="position">Front-end Developer</div>
+							<div class="note">summis exquisitaque firmissimum efflorescere o incididunt reprehenderit si 
+								concursionibus singulis </div>
+							
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div id = "louie" class="absolute-center">
+							<div class="image" style="background-image: url(images/louie.png);"></div>
+							<div>Almeda, Mark Louie</div>
+							<div class="position">Team Lead</div>
+							<div class="note">"Everyone has his own limit, but he is the one who is setting it."</div>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div id = "Rovie" class="absolute-center">
+							<div class="image" style="background-image: url(images/rovie2.png);"></div>
+							<div>Labutap, Rocelle Vie</div>
+							<div class="position">Back-end Developer</div>
+							<div class="note">doctrina an te do eu nisi praetermissum id arbitrantur quamquam imitarentur an quo</div>
+						</div>
+					</div>
+				</div>
+			</div>
+-->
+ 
             <div class="full-page layer-4 animated loading"  id = "login-menu">
                 <div id = "login" class="login-form absolute-center animated" style="z-index: 2; opacity: 0;">
                     <input id = "employee-number" type="text" placeholder="Employee Number e.g. E2011100000">
@@ -135,10 +175,13 @@
                     <div onclick="BackToLogin();" class="btn gray pull-right">Cancel</div>
                 </div>
                 
+				
+				
                 <div id = "login-logo" class="absolute-center loading">
                     <img src="images/logo-blue.png">
                     <span>FOGS</span>
                 </div>
+				
                 
             </div>
 
